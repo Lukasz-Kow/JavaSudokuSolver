@@ -3,5 +3,6 @@ public class Main {
         SudokuBoard sudokuBoard = new SudokuBoard();
         sudokuBoard.fillBoard();
         sudokuBoard.PrintBoard();
+
     }
 }
