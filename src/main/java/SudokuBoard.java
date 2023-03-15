@@ -6,46 +6,50 @@ public class SudokuBoard {
 
     public SudokuBoard() {
         board = new Integer[9][9];
-        for (Integer[] fields : board) {
-            Arrays.fill(fields, 0);
-        }
-    }
-
-    public void fillBoard() {
-        // Backtracking algorithm
-        boolean isFull = true;
-
-        for (Integer[] integers : board) {
+        for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                if (integers[j] == 0) {
-                    isFull = false;
-                    break;
-                }
+                board[i][j] = 0;
             }
         }
-
-        if (!isFull) {
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    if (board[i][j] == 0) {
-                        for (int k = 1; k <= 9; k++) {
-                            if (validation(i, j, k)) {
-                                board[i][j] = k;
-                                fillBoard();
-                                board[i][j] = 0;
-                            }
-                        }
-                        return;
-                    }
-                }
-            }
-        } else {
-            printBoard();
-        }
-
     }
 
-    private boolean validation(int row, int col, int num) {
+
+    public boolean fillBoard(int row, int column)
+    {
+        if(row == 8 && column == 9)
+            return true;
+
+        if(column == 9) {
+            row++;
+            column = 0;
+        }
+
+
+        for(int i = 0; i < 10; i++) {
+
+            // Using a random number generator to fill the board
+            // Not optimal but it works
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(9) + 1;
+
+            if(isValid(row, column, randomNumber))
+            {
+                board[row][column] = randomNumber;
+
+                if(fillBoard(row, column + 1))
+                {
+                    return true;
+                }
+                else
+                {
+                    board[row][column] = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isValid(int row, int col, int num) {
         for (int i = 0; i < 9; i++) {
             if (board[row][i] == num) {
                 return false;

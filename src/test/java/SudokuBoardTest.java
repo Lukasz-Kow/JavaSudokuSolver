@@ -7,6 +7,6 @@ class SudokuBoardTest {
     @Test
     void testFillBoard() {
         SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.fillBoard();
+        sudokuBoard.fillBoard(0,0);
     }
 }
