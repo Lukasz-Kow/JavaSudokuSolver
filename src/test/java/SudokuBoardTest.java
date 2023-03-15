@@ -1,16 +1,18 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
 
-    boolean isValid(Integer[][] board) {
+    boolean isValid(SudokuBoard sudokuBoard) {
 
         // Check rows
         for (int row = 0; row < 9; row++) {
             boolean[] seen = new boolean[10];
             for (int col = 0; col < 9; col++) {
-                int num = board[row][col];
+                int num = sudokuBoard.getValue(row, col);
                 if (num != 0) {
                     if (seen[num]) {
                         return false;
@@ -24,7 +26,7 @@ class SudokuBoardTest {
         for (int col = 0; col < 9; col++) {
             boolean[] seen = new boolean[10];
             for (int row = 0; row < 9; row++) {
-                int num = board[row][col];
+                int num = sudokuBoard.getValue(row, col);
                 if (num != 0) {
                     if (seen[num]) {
                         return false;
@@ -40,7 +42,7 @@ class SudokuBoardTest {
                 boolean[] seen = new boolean[10];
                 for (int row = i; row < i + 3; row++) {
                     for (int col = j; col < j + 3; col++) {
-                        int num = board[row][col];
+                        int num = sudokuBoard.getValue(row, col);
                         if (num != 0) {
                             if (seen[num]) {
                                 return false;
@@ -62,7 +64,7 @@ class SudokuBoardTest {
         sudokuBoard.fillBoard(0,0);
         sudokuBoard.printBoard();
 
-        assertTrue(isValid(sudokuBoard.getBoard()));
+        assertTrue(isValid(sudokuBoard));
 
     }
 
@@ -75,7 +77,7 @@ class SudokuBoardTest {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (sudokuBoard1.getBoard()[i][j] != sudokuBoard2.getBoard()[i][j]) {
+                if (!Objects.equals(sudokuBoard1.getValue(i, j), sudokuBoard2.getValue(i, j))) {
                     assertTrue(true);
                 }
             }

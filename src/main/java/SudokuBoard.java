@@ -12,11 +12,7 @@ public class SudokuBoard {
             }
         }
     }
-
-    public Integer[][] getBoard() {
-        return board;
-    }
-
+    
     public Integer getValue (int row, int column) {
         return board[row][column];
     }
