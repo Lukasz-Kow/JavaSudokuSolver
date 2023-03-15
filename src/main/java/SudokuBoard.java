@@ -13,6 +13,9 @@ public class SudokuBoard {
         }
     }
 
+    public Integer[][] getBoard() {
+        return board;
+    }
 
     public boolean fillBoard(int row, int column)
     {
@@ -29,8 +32,8 @@ public class SudokuBoard {
 
             // Using a random number generator to fill the board
             // Not optimal but it works
-            Random rand = new Random();
-            int randomNumber = rand.nextInt(9) + 1;
+            // TODO: Implement something with an array that is randomized everry time and iterate through it
+            int randomNumber = new Random().nextInt(9) + 1;
 
             if(isValid(row, column, randomNumber))
             {
