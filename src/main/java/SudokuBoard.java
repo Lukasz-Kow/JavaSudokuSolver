@@ -17,6 +17,10 @@ public class SudokuBoard {
         return board;
     }
 
+    public Integer getValue (int row, int column) {
+        return board[row][column];
+    }
+
     public boolean fillBoard(int row, int column)
     {
         if(row == 8 && column == 9)
