@@ -34,7 +34,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
-                    <configLocation>checkstyle2022.xml</configLocation>
+                    <configLocation>checkstyle2023.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <linkXRef>false</linkXRef>
                 </configuration>

@@ -13,14 +13,14 @@ public class SudokuBoard {
         }
     }
     
-    public Integer getValue (int row, int column) {
+    public Integer getValue(int row, int column) {
         return board[row][column];
     }
 
-    public boolean fillBoard(int row, int column)
-    {
-        if(row == 8 && column == 9)
+    public boolean fillBoard(int row, int column) {
+        if(row == 8 && column == 9) {
             return true;
+        }
 
         if(column == 9) {
             row++;
@@ -35,16 +35,13 @@ public class SudokuBoard {
             // TODO: Implement something with an array that is randomized everry time and iterate through it
             int randomNumber = new Random().nextInt(9) + 1;
 
-            if(isValid(row, column, randomNumber))
-            {
+            if(isValid(row, column, randomNumber)) {
                 board[row][column] = randomNumber;
 
-                if(fillBoard(row, column + 1))
-                {
+                if(fillBoard(row, column + 1)) {
                     return true;
                 }
-                else
-                {
+                else{
                     board[row][column] = 0;
                 }
             }
