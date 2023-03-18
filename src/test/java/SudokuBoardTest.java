@@ -1,11 +1,11 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
 
+    BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
     boolean isValid(SudokuBoard sudokuBoard) {
 
         // Check rows
@@ -59,10 +59,11 @@ class SudokuBoardTest {
     }
 
     @Test
-    void testFillBoard() {
-        SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.fillBoard(0,0);
-        sudokuBoard.printBoard();
+    void solveEmptyBoard() {
+
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+
+        sudokuBoard.solve();
 
         assertTrue(isValid(sudokuBoard));
 
@@ -70,18 +71,13 @@ class SudokuBoardTest {
 
     @Test
     void test2SubsequentBoardsAreDifferent(){
-        SudokuBoard sudokuBoard1 = new SudokuBoard();
-        sudokuBoard1.fillBoard(0,0);
-        SudokuBoard sudokuBoard2 = new SudokuBoard();
-        sudokuBoard2.fillBoard(0,0);
+        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
+        sudokuBoard1.solve();
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (!Objects.equals(sudokuBoard1.getValue(i, j), sudokuBoard2.getValue(i, j))) {
-                    assertTrue(true);
-                }
-            }
-        }
+        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
+        sudokuBoard2.solve();
+
+        assertNotEquals(sudokuBoard1, sudokuBoard2);
 
     }
 }

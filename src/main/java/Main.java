@@ -1,8 +1,13 @@
 
 public class Main {
     public static void main(String[] args) {
-        SudokuBoard sudokuBoard = new SudokuBoard();
-        sudokuBoard.fillBoard(0,0);
+        BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+
+        sudokuBoard.setValue(0, 0, 5);
+        sudokuBoard.setValue(0, 1, 9);
+
+        sudokuBoard.solve();
         sudokuBoard.printBoard();
     }
 }
