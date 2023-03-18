@@ -8,6 +8,20 @@
     <artifactId>ww_thu_1145_05</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <description>Laboratory group ww_thu_1145_05</description>
+
+    <developers>
+        <developer>
+            <id>242228</id>
+            <name>Mateusz Pryl</name>
+            <email>242228@edu.p.lodz.pl</email>
+        </developer>
+        <developer>
+            <id>242163</id>
+            <name>Łukasz Kowalczyk</name>
+            <email>242163@edu.p.lodz.pl</email>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>19</maven.compiler.release>
@@ -24,6 +38,16 @@
     </dependencies>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.14.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
