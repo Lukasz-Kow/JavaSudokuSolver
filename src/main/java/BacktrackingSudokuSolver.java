@@ -1,5 +1,6 @@
 import java.util.Random;
-public class BacktrackingSudokuSolver implements SudokuSolver{
+
+public class BacktrackingSudokuSolver implements SudokuSolver {
 
     public void solve(SudokuBoard board) {
         if (solve(board, 0, 0)) {

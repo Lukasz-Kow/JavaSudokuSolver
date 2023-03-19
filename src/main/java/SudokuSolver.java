@@ -1,4 +1,4 @@
 interface SudokuSolver {
-    void solve (SudokuBoard board);
+    void solve(SudokuBoard board);
 
 }

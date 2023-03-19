@@ -23,42 +23,9 @@ public class SudokuBoard {
         board[row][column] = value;
     }
 
-    public void solve () {
+    public void solve() {
         solver.solve(this);
     }
-
-
-//    public boolean fillBoard(int row, int column) {
-//        if (row == 8 && column == 9) {
-//            return true;
-//        }
-//
-//        if (column == 9) {
-//            row++;
-//            column = 0;
-//        }
-//
-//
-//        for (int i = 0; i < 10; i++) {
-//
-//            // Using a random number generator to fill the board
-//            // Not optimal but it works
-//            // TODO: Implement something with an array that is randomized everry time and iterate through it
-//            int randomNumber = new Random().nextInt(9) + 1;
-//
-//            if (isValid(row, column, randomNumber)) {
-//                board[row][column] = randomNumber;
-//
-//                if (fillBoard(row, column + 1)) {
-//                    return true;
-//                } else {
-//                    board[row][column] = 0;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
 
 
     public void printBoard() {
