@@ -180,4 +180,23 @@ class SudokuBoardTest {
         assertNotEquals(sudokuBoard1, sudokuBoard2);
 
     }
+
+    @Test
+    void printingBoardTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.printBoard();
+
+        assertNotNull(sudokuBoard);
+
+
+    }
+
+    @Test
+    void EmptyMainTest(){
+        Main main = new Main();
+        main.main(new String[0]);
+
+
+    }
 }
