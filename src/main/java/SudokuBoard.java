@@ -5,7 +5,9 @@ public class SudokuBoard {
 
     private SudokuRow Rows[];
     private SudokuColumn Columns[];
-    private SudokuBox Boxes[][];
+    private SudokuBox Boxes[];
+
+    private SudokuField fields[][];
 
     private SudokuSolver solver;
 
@@ -48,6 +50,10 @@ public class SudokuBoard {
 //        System.out.println();
 //    }
 //
+
+    public int get(int x, int y){
+        return fields[x][y].getValue();
+    }
     public SudokuRow getRow(int y){
         return Rows[y];
     }
