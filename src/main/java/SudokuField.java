@@ -3,7 +3,7 @@ public class SudokuField {
     public SudokuField(int value) {
         this.value = value;
     }
-    public int getValue() {
+    public int getFieldValue() {
         return value;
     }
     public void setValue(int value) {

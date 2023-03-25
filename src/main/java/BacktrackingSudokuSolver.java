@@ -17,7 +17,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         if (col == 9) {
             return solve(board, row + 1, 0);
         }
-        if (board.getValue(row, col) != 0) {
+        if (board.getFieldValue(row, col) != 0) {
             return solve(board, row, col + 1);
         }
         for (int i = 1; i <= 9; i++) {

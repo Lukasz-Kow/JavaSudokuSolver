@@ -1,16 +1,16 @@
 public class SudokuRow {
     private SudokuField[] row;
 
-    public SudokuRow(Integer[] integers) {
+    public SudokuRow() {
         row = new SudokuField[9];
         for (int i = 0; i < 9; i++) {
             row[i] = new SudokuField(0);
         }
     }
-    private boolean isValid(){
+    public boolean isValid(){
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (row[i].getValue() == row[j].getValue()) {
+                if (row[i].getFieldValue() == row[j].getFieldValue()) {
                     return false;
                 }
             }
