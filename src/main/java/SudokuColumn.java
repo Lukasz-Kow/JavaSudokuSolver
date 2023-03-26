@@ -1,11 +1,8 @@
 public class SudokuColumn {
     private SudokuField[] column;
 
-    public SudokuColumn() {
-        column = new SudokuField[9];
-        for (int i = 0; i < 9; i++) {
-            column[i] = new SudokuField(0);
-        }
+    public SudokuColumn(SudokuField[] column) {
+        this.column = column;
     }
     public boolean isValid(){
         for (int i = 0; i < 9; i++) {
@@ -16,5 +13,12 @@ public class SudokuColumn {
             }
         }
         return true;
+    }
+
+    public void printColumn() {
+        for (int i = 0; i < 9; i++) {
+            System.out.print(column[i].getFieldValue() + "\n");
+        }
+        System.out.println();
     }
 }

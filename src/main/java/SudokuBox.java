@@ -1,13 +1,9 @@
 public class SudokuBox {
     private SudokuField[][] box;
 
-    public SudokuBox() {
-        box = new SudokuField[3][3];
-        for (int i = 0; i < 3; i++) {
-            box[i][0] = new SudokuField(0);
-            box[i][1] = new SudokuField(0);
-            box[i][2] = new SudokuField(0);
-        }
+    public SudokuBox(SudokuField[][] box) {
+        this.box = box;
+
     }
 
     public boolean isValid() {
@@ -25,5 +21,15 @@ public class SudokuBox {
             }
         }
         return true;
+    }
+
+    public void printBox() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(box[i][j].getFieldValue() + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }

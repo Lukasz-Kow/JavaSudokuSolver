@@ -17,17 +17,17 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         if (col == 9) {
             return solve(board, row + 1, 0);
         }
-        if (board.getFieldValue(row, col) != 0) {
+        if (board.get(row, col) != 0) {
             return solve(board, row, col + 1);
         }
         for (int i = 1; i <= 9; i++) {
             int randomNum = new Random().nextInt(9) + 1;
             if (isValid(board, row, col, randomNum)) {
-                board.setValue(row, col, randomNum);
+                board.set(row, col, randomNum);
                 if (solve(board, row, col + 1)) {
                     return true;
                 }
-                board.setValue(row, col, 0);
+                board.set(row, col, 0);
             }
         }
         return false;
@@ -35,12 +35,12 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
     private boolean isValid(SudokuBoard board, int row, int col, int num) {
         for (int i = 0; i < 9; i++) {
-            if (board.getValue(row, i) == num) {
+            if (board.get(row, i) == num) {
                 return false;
             }
         }
         for (int i = 0; i < 9; i++) {
-            if (board.getValue(i, col) == num) {
+            if (board.get(i, col) == num) {
                 return false;
             }
         }
@@ -48,7 +48,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         int boxCol = col - col % 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (board.getValue(boxRow + i, boxCol + j) == num) {
+                if (board.get(boxRow + i, boxCol + j) == num) {
                     return false;
                 }
             }

@@ -3,11 +3,11 @@
 public class SudokuBoard {
 
 
-    private SudokuRow Rows[];
-    private SudokuColumn Columns[];
-    private SudokuBox Boxes[][];
+    private SudokuRow Rows[] = new SudokuRow[9];
+    private SudokuColumn Columns[] = new SudokuColumn[9];
+    private SudokuBox Boxes[][] = new SudokuBox[3][3];
 
-    private SudokuField fields[][];
+    private SudokuField fields[][] = new SudokuField[9][9];
 
     private SudokuSolver solver;
 
@@ -15,11 +15,36 @@ public class SudokuBoard {
         this.solver = solver;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                fields[i][j] = new SudokuField(0);
+
+                this.fields[i][j] = new SudokuField(0);
             }
 
         }
 
+        for (int i = 0; i < 9; i++) {
+            Rows[i] = new SudokuRow(fields[i]);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            SudokuField[] temp = new SudokuField[9];
+            for (int j = 0; j < 9; j++) {
+                temp[j] = fields[j][i];
+            }
+            Columns[i] = new SudokuColumn(temp);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                SudokuField[][] temp = new SudokuField[3][3];
+
+                for (int k = 0; k < 3; k++) {
+                    for (int l = 0; l < 3; l++) {
+                        temp[k][l] = fields[i * 3 + k][j * 3 + l];
+                    }
+                }
+                Boxes[i][j] = new SudokuBox(temp);
+            }
+        }
 
     }
 

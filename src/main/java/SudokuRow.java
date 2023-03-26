@@ -1,11 +1,8 @@
 public class SudokuRow {
     private SudokuField[] row;
 
-    public SudokuRow() {
-        row = new SudokuField[9];
-        for (int i = 0; i < 9; i++) {
-            row[i] = new SudokuField(0);
-        }
+    public SudokuRow(SudokuField[] row) {
+        this.row = row;
     }
     public boolean isValid(){
         for (int i = 0; i < 9; i++) {
@@ -16,6 +13,14 @@ public class SudokuRow {
             }
         }
         return true;
+    }
+
+
+    public void printRow() {
+        for (int i = 0; i < 9; i++) {
+            System.out.print(row[i].getFieldValue() + " ");
+        }
+        System.out.println();
     }
 
 }
