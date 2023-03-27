@@ -196,7 +196,64 @@ class SudokuBoardTest {
     void EmptyMainTest(){
         Main main = new Main();
         main.main(new String[0]);
-
-
     }
+
+    @Test
+    void IsValidTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        assertTrue(isValid(sudokuBoard));
+    }
+
+    @Test
+    void printBoxTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        sudokuBox.printBox();
+        assertNotNull(sudokuBox);
+    }
+
+    @Test
+    void printRowTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        sudokuRow.printRow();
+        assertNotNull(sudokuRow);
+    }
+
+    @Test
+    void printColumnTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        sudokuColumn.printColumn();
+        assertNotNull(sudokuColumn);
+    }
+
+    @Test
+    void columnIsValidTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        assertTrue(sudokuColumn.isValid());
+    }
+
+    @Test
+    void rowIsValidTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        assertTrue(sudokuRow.isValid());
+    }
+
+    @Test
+    void boxIsValidTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        assertTrue(sudokuBox.isValid());
+    }
+
 }
