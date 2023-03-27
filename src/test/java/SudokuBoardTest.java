@@ -256,4 +256,76 @@ class SudokuBoardTest {
         assertTrue(sudokuBox.isValid());
     }
 
+    @Test
+    void checkBoardTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        assertTrue(sudokuBoard.checkBoard());
+    }
+
+    @Test
+    void SudokuBoxIsValidFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,1,1);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        assertFalse(sudokuBox.isValid());
+    }
+
+    @Test
+    void SudokuRowIsValidFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(1,0,1);
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        assertFalse(sudokuRow.isValid());
+    }
+
+    @Test
+    void SudokuColumnIsValidFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,1,1);
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        assertFalse(sudokuColumn.isValid());
+    }
+
+    @Test
+    void SudokuBoxsFieldEqual0Test(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        assertTrue(sudokuBox.isValid());
+    }
+
+    @Test
+    void CheckBoardRowFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(1,0,1);
+        assertFalse(sudokuBoard.checkBoard());
+    }
+
+    @Test
+    void CheckBoardColumnFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,1,1);
+        assertFalse(sudokuBoard.checkBoard());
+    }
+
+    @Test
+    void CheckBoardBoxFalseTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,2);
+        sudokuBoard.set(2,1,2);
+        assertFalse(sudokuBoard.checkBoard());
+    }
 }
