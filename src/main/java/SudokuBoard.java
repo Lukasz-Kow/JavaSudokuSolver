@@ -91,7 +91,16 @@ public class SudokuBoard {
         return boxes[x][y];
     }
 
+
     public boolean checkBoard() {
+        for (int i = 0; (i % 3) == 0 && i < 9; i++) {
+            for (int j = 0; j % 3 == 0 && j < 9; j++) {
+                if (!boxes[i][j].isValid()) {
+                    return false;
+                }
+            }
+        }
+
         for (int i = 0; i < 9; i++) {
             if (!rows[i].isValid()) {
                 return false;
@@ -99,12 +108,8 @@ public class SudokuBoard {
             if (!columns[i].isValid()) {
                 return false;
             }
-            for (int j = 0; j < 9; j++) {
-                if (!boxes[i][j].isValid()) {
-                    return false;
-                }
-            }
         }
+
         return true;
     }
 }

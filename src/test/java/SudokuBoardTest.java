@@ -305,9 +305,11 @@ class SudokuBoardTest {
     @Test
     void CheckBoardRowFalseTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(1,0,1);
+        sudokuBoard.set(0,0,3);
+        sudokuBoard.set(0,1,1);
+        sudokuBoard.set(0,2,2);
+        sudokuBoard.set(0,3,4);
+        sudokuBoard.set(0,4,5);
         assertFalse(sudokuBoard.checkBoard());
     }
 
@@ -315,17 +317,19 @@ class SudokuBoardTest {
     void CheckBoardColumnFalseTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,1,1);
+        sudokuBoard.set(8,0,2);
         assertFalse(sudokuBoard.checkBoard());
+        sudokuBoard.printBoard();
     }
 
     @Test
     void CheckBoardBoxFalseTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
+
         sudokuBoard.set(0,0,2);
-        sudokuBoard.set(2,1,2);
+
         assertFalse(sudokuBoard.checkBoard());
+        sudokuBoard.printBoard();
     }
 }

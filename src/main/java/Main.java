@@ -6,5 +6,6 @@ public class Main {
 
         sudokuBoard.solve();
         sudokuBoard.printBoard();
+        sudokuBoard.checkBoard();
     }
 }
