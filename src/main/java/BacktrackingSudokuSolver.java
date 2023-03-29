@@ -3,9 +3,7 @@ import java.util.Random;
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
     public void solve(SudokuBoard board) {
-        if (solve(board, 0, 0)) {
-            System.out.println("Solved");
-        } else {
+        if (!solve(board, 0, 0)) {
             System.out.println("No solution");
         }
     }
