@@ -107,6 +107,12 @@ public class SudokuBoard {
             }
         }
 
+        for (int i = 0; i < 9; i++) {
+            if (!columns[i].isValid()) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

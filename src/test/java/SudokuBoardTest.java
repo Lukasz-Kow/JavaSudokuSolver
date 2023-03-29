@@ -168,5 +168,23 @@ class SudokuBoardTest {
         assertTrue(sudokuBoard.checkBoard());
     }
 
+    @Test
+    void checkBoardTestNotValidBecauseOfRow(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,0,1);
+        assertFalse(sudokuBoard.checkBoard());
+    }
+
+    @Test
+    void checkBoardTestNotValidBecauseOfColumn(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,1,1);
+        assertFalse(sudokuBoard.checkBoard());
+    }
+
 
 }
