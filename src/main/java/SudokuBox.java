@@ -1,4 +1,4 @@
-public class SudokuBox {
+public class SudokuBox extends SudokuElement{
     private SudokuField[][] box;
 
     public SudokuBox(SudokuField[][] box) {
@@ -6,7 +6,7 @@ public class SudokuBox {
 
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         boolean[] visited = new boolean[10];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -25,7 +25,7 @@ public class SudokuBox {
         return true;
     }
 
-    public void printBox() {
+    void print() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(box[i][j].getFieldValue() + " ");

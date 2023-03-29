@@ -12,7 +12,7 @@ class SudokuColumnTest {
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        sudokuColumn.printColumn();
+        sudokuColumn.print();
         assertNotNull(sudokuColumn);
     }
 

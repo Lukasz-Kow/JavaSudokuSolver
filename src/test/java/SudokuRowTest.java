@@ -13,7 +13,7 @@ class SudokuRowTest {
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        sudokuRow.printRow();
+        sudokuRow.print();
         assertNotNull(sudokuRow);
     }
 
@@ -34,6 +34,8 @@ class SudokuRowTest {
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(1,0,1);
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        sudokuRow.print();
+
         assertFalse(sudokuRow.isValid());
     }
 

@@ -171,9 +171,21 @@ class SudokuBoardTest {
     @Test
     void checkBoardTestNotValidBecauseOfRow(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,0,1);
+
+
+        // Filling every box with numbers
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // [7, 8, 9]
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                sudokuBoard.set(i,j, (i*3+j+1)%9+1);
+            }
+        }
+
+       sudokuBoard.printBoard();
+
         assertFalse(sudokuBoard.checkBoard());
     }
 
@@ -182,7 +194,7 @@ class SudokuBoardTest {
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,1,1);
+        sudokuBoard.set(0,8,1);
         assertFalse(sudokuBoard.checkBoard());
     }
 

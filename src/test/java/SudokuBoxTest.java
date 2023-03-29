@@ -12,7 +12,7 @@ class SudokuBoxTest {
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
-        sudokuBox.printBox();
+        sudokuBox.print();
         assertNotNull(sudokuBox);
     }
 
