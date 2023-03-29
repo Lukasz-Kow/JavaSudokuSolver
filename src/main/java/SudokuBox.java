@@ -17,6 +17,8 @@ public class SudokuBox {
                     } else {
                         visited[box[i][j].getFieldValue()] = true;
                     }
+                } else {
+                    return false;
                 }
             }
         }

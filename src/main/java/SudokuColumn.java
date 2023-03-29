@@ -8,7 +8,7 @@ public class SudokuColumn {
     public boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (column[i].getFieldValue() == column[j].getFieldValue()) {
+                if (column[i].getFieldValue() == column[j].getFieldValue() || column[i].getFieldValue() == 0) {
                     return false;
                 }
             }
