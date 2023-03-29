@@ -1,4 +1,4 @@
-public class SudokuRow extends SudokuElement{
+public class SudokuRow extends SudokuElement {
     private SudokuField[] row;
 
     public SudokuRow(SudokuField[] row) {
