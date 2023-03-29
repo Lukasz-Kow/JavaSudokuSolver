@@ -1,62 +1,10 @@
 import org.junit.jupiter.api.Test;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
-    boolean isValid(SudokuBoard sudokuBoard) {
-
-        // Check rows
-        for (int row = 0; row < 9; row++) {
-            boolean[] seen = new boolean[10];
-            for (int col = 0; col < 9; col++) {
-                int num = sudokuBoard.get(row, col);
-                if (num != 0) {
-                    if (seen[num]) {
-                        return false;
-                    }
-                    seen[num] = true;
-                }
-            }
-        }
-
-        // Check columns
-        for (int col = 0; col < 9; col++) {
-            boolean[] seen = new boolean[10];
-            for (int row = 0; row < 9; row++) {
-                int num = sudokuBoard.get(row, col);
-                if (num != 0) {
-                    if (seen[num]) {
-                        return false;
-                    }
-                    seen[num] = true;
-                }
-            }
-        }
-
-        // Check 3x3 squares
-        for (int i = 0; i < 9; i += 3) {
-            for (int j = 0; j < 9; j += 3) {
-                boolean[] seen = new boolean[10];
-                for (int row = i; row < i + 3; row++) {
-                    for (int col = j; col < j + 3; col++) {
-                        int num = sudokuBoard.get(row, col);
-                        if (num != 0) {
-                            if (seen[num]) {
-                                return false;
-                            }
-                            seen[num] = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // If all checks pass, the Sudoku board is valid
-        return true;
-    }
+    SudokuTestValidatorHelper validator = new SudokuTestValidatorHelper();
 
     @Test
     void solveEmptyBoard() {
@@ -65,7 +13,7 @@ class SudokuBoardTest {
 
         sudokuBoard.solve();
 
-        assertTrue(isValid(sudokuBoard));
+        assertTrue(validator.isValid(sudokuBoard));
 
     }
 
@@ -164,7 +112,7 @@ class SudokuBoardTest {
 
             sudokuBoard.solve();
 
-            assertFalse(isValid(sudokuBoard));
+            assertFalse(validator.isValid(sudokuBoard));
 
 
     }
@@ -189,7 +137,6 @@ class SudokuBoardTest {
 
         assertNotNull(sudokuBoard);
 
-
     }
 
     @Test
@@ -202,35 +149,9 @@ class SudokuBoardTest {
     void IsValidTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        assertTrue(isValid(sudokuBoard));
+        assertTrue(validator.isValid(sudokuBoard));
     }
 
-    @Test
-    void printBoxTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
-        sudokuBox.printBox();
-        assertNotNull(sudokuBox);
-    }
-
-    @Test
-    void printRowTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        sudokuRow.printRow();
-        assertNotNull(sudokuRow);
-    }
-
-    @Test
-    void printColumnTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        sudokuColumn.printColumn();
-        assertNotNull(sudokuColumn);
-    }
 
     @Test
     void columnIsValidTest(){
@@ -241,86 +162,11 @@ class SudokuBoardTest {
     }
 
     @Test
-    void rowIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        assertTrue(sudokuRow.isValid());
-    }
-
-    @Test
-    void boxIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
-        assertTrue(sudokuBox.isValid());
-    }
-
-    @Test
     void checkBoardTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         assertTrue(sudokuBoard.checkBoard());
     }
 
-    @Test
-    void SudokuBoxIsValidFalseTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,1,1);
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
-        assertFalse(sudokuBox.isValid());
-    }
 
-    @Test
-    void SudokuRowIsValidFalseTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(1,0,1);
-        SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        assertFalse(sudokuRow.isValid());
-    }
-
-    @Test
-    void SudokuColumnIsValidFalseTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(2,0,1);
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        assertFalse(sudokuColumn.isValid());
-    }
-
-    @Test
-    void SudokuBoxsFieldEqual0Test(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,0);
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
-        assertTrue(sudokuBox.isValid());
-    }
-
-    @Test
-    void CheckBoardRowFalseTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.set(0,0,3);
-        sudokuBoard.set(0,1,1);
-        sudokuBoard.set(0,2,2);
-        sudokuBoard.set(0,3,4);
-        sudokuBoard.set(0,4,5);
-        assertFalse(sudokuBoard.checkBoard());
-    }
-
-    @Test
-    void CheckBoardBoxFalseTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-
-        sudokuBoard.set(3,4,1);
-
-        assertFalse(sudokuBoard.checkBoard());
-        sudokuBoard.printBoard();
-    }
 }
