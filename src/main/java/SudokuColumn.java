@@ -1,14 +1,16 @@
-public class SudokuColumn extends SudokuElement {
-    private SudokuField[] column;
+import java.util.List;
 
-    public SudokuColumn(SudokuField[] column) {
+public class SudokuColumn extends SudokuElement {
+    private List<SudokuField> column;
+
+    public SudokuColumn(List<SudokuField> column) {
         this.column = column;
     }
 
     boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (column[i].getFieldValue() == column[j].getFieldValue() || column[i].getFieldValue() == 0) {
+                if (column.get(i).getFieldValue() == column.get(j).getFieldValue() || column.get(i).getFieldValue() == 0) {
                     return false;
                 }
             }
@@ -18,7 +20,7 @@ public class SudokuColumn extends SudokuElement {
 
     void print() {
         for (int i = 0; i < 9; i++) {
-            System.out.print(column[i].getFieldValue() + "\n");
+            System.out.print(column.get(i).getFieldValue() + "\n");
         }
         System.out.println();
     }
