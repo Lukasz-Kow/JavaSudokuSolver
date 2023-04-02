@@ -17,13 +17,11 @@ public class SudokuBoard {
         for (int i = 0; i < 9; i++) {
             List<SudokuField> rowFields = new ArrayList<>();
             for (int j = 0; j < 9; j++) {
+//                fields.get(i) = new SudokuField(0);
                 rowFields.add(new SudokuField(0));
             }
-            this.fields.add(rowFields);
-        }
-
-        for (int i = 0; i < 9; i++) {
-            rows.add(new SudokuRow(fields.get(i)));
+            fields.add(rowFields);
+            rows.add(new SudokuRow(rowFields));
         }
 
         for (int i = 0; i < 9; i++) {
@@ -34,18 +32,23 @@ public class SudokuBoard {
             columns.add(new SudokuColumn(temp));
         }
 
-        for (int i = 0; i < 3; i++) {
-            List<List<SudokuBox>> boxRow = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-                List<SudokuField> boxFields = new ArrayList<>();
-                for (int k = 0; k < 3; k++) {
-                    for (int l = 0; l < 3; l++) {
-                        boxFields.add(fields.get(i * 3 + k).get(j * 3 + l));
+
+        for (int z = 0; z < 3; z++) {
+            List<SudokuBox> boxRow = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                List<List<SudokuField>> fieldRow = new ArrayList<>();
+                for (int j = 0; j < 3; j++) {
+                    List<SudokuField> innerBoxFields = new ArrayList<>();
+                    for (int k = 0; k < 3; k++) {
+                        for (int l = 0; l < 3; l++) {
+                            innerBoxFields.add(fields.get(i * 3 + k).get(j * 3 + l));
+                        }
                     }
+                    fieldRow.add(innerBoxFields);
                 }
-               //boxRow.add(new SudokuBox(boxFields));
+                boxRow.add(new SudokuBox(fieldRow));
             }
-            //boxes.add(boxRow);
+            boxes.add(boxRow);
         }
 
     }
