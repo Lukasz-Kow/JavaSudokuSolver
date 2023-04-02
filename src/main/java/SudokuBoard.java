@@ -1,49 +1,51 @@
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class SudokuBoard {
 
 
-    private SudokuRow[] rows = new SudokuRow[9];
-    private SudokuColumn[] columns = new SudokuColumn[9];
-    private SudokuBox[][] boxes = new SudokuBox[3][3];
+    private List<SudokuRow> rows = new ArrayList<>();
+    private List<SudokuColumn> columns = new ArrayList<>();
+    private List<List<SudokuBox>> boxes = new ArrayList<>();
 
-    private SudokuField[][] fields = new SudokuField[9][9];
+    private List<List<SudokuField>> fields = new ArrayList<>();
 
     private SudokuSolver solver;
 
     public SudokuBoard(SudokuSolver solver) {
         this.solver = solver;
         for (int i = 0; i < 9; i++) {
+            List<SudokuField> rowFields = new ArrayList<>();
             for (int j = 0; j < 9; j++) {
-
-                this.fields[i][j] = new SudokuField(0);
+                rowFields.add(new SudokuField(0));
             }
-
+            this.fields.add(rowFields);
         }
 
         for (int i = 0; i < 9; i++) {
-            rows[i] = new SudokuRow(fields[i]);
+            rows.add(new SudokuRow(fields.get(i)));
         }
 
         for (int i = 0; i < 9; i++) {
-            SudokuField[] temp = new SudokuField[9];
+            List<SudokuField> temp = new ArrayList<>();
             for (int j = 0; j < 9; j++) {
-                temp[j] = fields[j][i];
+                temp.add(fields.get(j).get(i));
             }
-            columns[i] = new SudokuColumn(temp);
+            columns.add(new SudokuColumn(temp));
         }
 
         for (int i = 0; i < 3; i++) {
+            List<List<SudokuBox>> boxRow = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
-                SudokuField[][] temp = new SudokuField[3][3];
-
+                List<SudokuField> boxFields = new ArrayList<>();
                 for (int k = 0; k < 3; k++) {
                     for (int l = 0; l < 3; l++) {
-                        temp[k][l] = fields[i * 3 + k][j * 3 + l];
+                        boxFields.add(fields.get(i * 3 + k).get(j * 3 + l));
                     }
                 }
-                boxes[i][j] = new SudokuBox(temp);
+               //boxRow.add(new SudokuBox(boxFields));
             }
+            //boxes.add(boxRow);
         }
 
     }
@@ -57,58 +59,57 @@ public class SudokuBoard {
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(fields[i][j].getFieldValue() + " ");
+                System.out.print(fields.get(i).get(j).getFieldValue() + " ");
                 if (j == 2 || j == 5) {
                     System.out.print("| ");
                 }
-                }
-                    System.out.println();
-                if (i == 2 || i == 5) {
-                    System.out.println("---------------------");
-                }
             }
+            System.out.println();
+            if (i == 2 || i == 5) {
+                System.out.println("---------------------");
+            }
+        }
         System.out.println();
     }
 
 
     public int get(int x, int y) {
-        return fields[x][y].getFieldValue();
+        return fields.get(x).get(y).getFieldValue();
     }
 
     public void set(int x, int y, int value) {
-        fields[x][y].setValue(value);
+        fields.get(x).get(y).setValue(value);
     }
 
     public SudokuRow getRow(int y) {
-        return rows[y];
+        return rows.get(y);
     }
 
     public SudokuColumn getColumn(int x) {
-        return columns[x];
+        return columns.get(x);
     }
 
     public SudokuBox getBox(int x, int y) {
-        return boxes[x][y];
+        return boxes.get(x).get(y);
     }
-
 
     public boolean checkBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (!boxes[i][j].isValid()) {
+                if (!boxes.get(i).get(j).isValid()) {
                     return false;
                 }
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            if (!rows[i].isValid()) {
+            if (!rows.get(i).isValid()) {
                 return false;
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            if (!columns[i].isValid()) {
+            if (!columns.get(i).isValid()) {
                 return false;
             }
         }
