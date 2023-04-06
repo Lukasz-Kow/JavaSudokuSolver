@@ -1,54 +1,57 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SudokuBoard {
 
 
-    private List<SudokuRow> rows = new ArrayList<>();
-    private List<SudokuColumn> columns = new ArrayList<>();
+    private List<SudokuRow> rows = Arrays.asList(new SudokuRow[9]);
+    private List<SudokuColumn> columns = Arrays.asList(new SudokuColumn[9]);
     private List<List<SudokuBox>> boxes = new ArrayList<>();
 
-    private List<List<SudokuField>> fields = new ArrayList<>();
+    private List<SudokuField> fields = Arrays.asList(new SudokuField[81]);
 
     private SudokuSolver solver;
 
     public SudokuBoard(SudokuSolver solver) {
         this.solver = solver;
+        int offset = 0;
         for (int i = 0; i < 9; i++) {
             List<SudokuField> rowFields = new ArrayList<>();
             for (int j = 0; j < 9; j++) {
-//                fields.get(i) = new SudokuField(0);
-                rowFields.add(new SudokuField(0));
+                fields.set(j + offset, new SudokuField(0));
+                rowFields.add(fields.get(j + offset));
             }
-            fields.add(rowFields);
-            rows.add(new SudokuRow(rowFields));
+            offset += 9;
+            rows.set(i, new SudokuRow(rowFields));
         }
+
+        offset = 0;
 
         for (int i = 0; i < 9; i++) {
             List<SudokuField> temp = new ArrayList<>();
-            for (int j = 0; j < 9; j++) {
-                temp.add(fields.get(j).get(i));
+            for (int j = 0; j < 81; j += 9) {
+                temp.add(fields.get(j + offset));
             }
-            columns.add(new SudokuColumn(temp));
+            offset += 1;
+            columns.set(i, new SudokuColumn(temp));
         }
 
-
         for (int z = 0; z < 3; z++) {
-            List<SudokuBox> boxRow = new ArrayList<>();
+            List<SudokuBox> rowOfBoxes = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
-                List<List<SudokuField>> fieldRow = new ArrayList<>();
+                List<List<SudokuField>> tempBox = new ArrayList<>();
                 for (int j = 0; j < 3; j++) {
-                    List<SudokuField> innerBoxFields = new ArrayList<>();
+                    List<SudokuField> innerBoxRow = new ArrayList<>();
                     for (int k = 0; k < 3; k++) {
                         for (int l = 0; l < 3; l++) {
-                            innerBoxFields.add(fields.get(i * 3 + k).get(j * 3 + l));
+//                            innerBoxRow.add(fields.get(i * 3 + k).get(j * 3 + l));
+                            innerBoxRow.add(fields.get(i * 3 + k + (j * 3 + l) * 9));
                         }
                     }
-                    fieldRow.add(innerBoxFields);
+                    tempBox.add(innerBoxRow);
                 }
-                boxRow.add(new SudokuBox(fieldRow));
+                rowOfBoxes.add(new SudokuBox(tempBox));
             }
-            boxes.add(boxRow);
+            boxes.add(rowOfBoxes);
         }
 
     }
@@ -62,7 +65,7 @@ public class SudokuBoard {
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(fields.get(i).get(j).getFieldValue() + " ");
+                System.out.print(fields.get(i + j * 9).getFieldValue() + " ");
                 if (j == 2 || j == 5) {
                     System.out.print("| ");
                 }
@@ -77,11 +80,11 @@ public class SudokuBoard {
 
 
     public int get(int x, int y) {
-        return fields.get(x).get(y).getFieldValue();
+        return fields.get(x + y * 9).getFieldValue();
     }
 
     public void set(int x, int y, int value) {
-        fields.get(x).get(y).setValue(value);
+        fields.get(x + y * 9).setValue(value);
     }
 
     public SudokuRow getRow(int y) {
