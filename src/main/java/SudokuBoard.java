@@ -43,7 +43,6 @@ public class SudokuBoard {
                     List<SudokuField> innerBoxRow = new ArrayList<>();
                     for (int k = 0; k < 3; k++) {
                         for (int l = 0; l < 3; l++) {
-//                            innerBoxRow.add(fields.get(i * 3 + k).get(j * 3 + l));
                             innerBoxRow.add(fields.get(i * 3 + k + (j * 3 + l) * 9));
                         }
                     }
@@ -107,13 +106,13 @@ public class SudokuBoard {
                 }
             }
         }
-
+        //columns
         for (int i = 0; i < 9; i++) {
             if (!rows.get(i).isValid()) {
                 return false;
             }
         }
-
+        //rows
         for (int i = 0; i < 9; i++) {
             if (!columns.get(i).isValid()) {
                 return false;

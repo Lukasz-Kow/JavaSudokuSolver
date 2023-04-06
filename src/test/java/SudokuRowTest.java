@@ -52,7 +52,7 @@ class SudokuRowTest {
     void SudokuRowTestUsingCheckBoard(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
 
-        sudokuBoard.set(0,0,4); // should be 1
+        sudokuBoard.set(0,0,1);
         sudokuBoard.set(0,1,2);
         sudokuBoard.set(0,2,3);
         sudokuBoard.set(0,3,4);
@@ -62,9 +62,9 @@ class SudokuRowTest {
         sudokuBoard.set(0,7,8);
         sudokuBoard.set(0,8,9);
 
-        sudokuBoard.set(1,0,1); // should be 4
-        sudokuBoard.set(1,1,5);
-        sudokuBoard.set(1,2,6);
+        sudokuBoard.set(1,0,4);
+        sudokuBoard.set(1,1,6);
+        sudokuBoard.set(1,2,5);
         sudokuBoard.set(1,3,7);
         sudokuBoard.set(1,4,8);
         sudokuBoard.set(1,5,9);

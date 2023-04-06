@@ -43,7 +43,7 @@ class SudokuColumnTest {
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         assertFalse(sudokuColumn.isValid());
     }
-
+//row test
     @Test
     void SudokuColumnTestUsingCheckBoard(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
@@ -58,7 +58,7 @@ class SudokuColumnTest {
         sudokuBoard.set(0,7,8);
         sudokuBoard.set(0,8,9);
 
-        sudokuBoard.set(1,0,4);
+        sudokuBoard.set(1,0,7);
         sudokuBoard.set(1,1,5);
         sudokuBoard.set(1,2,6);
         sudokuBoard.set(1,3,7);
@@ -68,7 +68,7 @@ class SudokuColumnTest {
         sudokuBoard.set(1,7,2);
         sudokuBoard.set(1,8,3);
 
-        sudokuBoard.set(2,0,7);
+        sudokuBoard.set(2,0,4);
         sudokuBoard.set(2,1,8);
         sudokuBoard.set(2,2,9);
         sudokuBoard.set(2,3,1);
@@ -128,8 +128,8 @@ class SudokuColumnTest {
         sudokuBoard.set(7,7,4);
         sudokuBoard.set(7,8,5);
 
-        sudokuBoard.set(8,0,1); //zmienionena 9
-        sudokuBoard.set(8,1,9); // zmienione z 1
+        sudokuBoard.set(8,0,9);
+        sudokuBoard.set(8,1,1);
         sudokuBoard.set(8,2,2);
         sudokuBoard.set(8,3,3);
         sudokuBoard.set(8,4,4);

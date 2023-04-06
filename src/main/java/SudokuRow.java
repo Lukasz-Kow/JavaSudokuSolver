@@ -10,7 +10,8 @@ public class SudokuRow extends SudokuElement {
     boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (row.get(i).getFieldValue() == row.get(j).getFieldValue() || row.get(i).getFieldValue() == 0) {
+                if (row.get(i).getFieldValue() == row.get(j).getFieldValue()
+                        || row.get(i).getFieldValue() == 0) {
                     return false;
                 }
             }
