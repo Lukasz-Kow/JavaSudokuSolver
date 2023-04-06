@@ -1,4 +1,6 @@
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.*;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
@@ -18,10 +20,14 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         if (board.get(row, col) != 0) {
             return solve(board, row, col + 1);
         }
-        for (int i = 1; i <= 9; i++) {
-            int randomNum = new Random().nextInt(9) + 1;
-            if (isValid(board, row, col, randomNum)) {
-                board.set(row, col, randomNum);
+
+        List<Integer> numbersToTry = new ArrayList<>(
+                Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        Collections.shuffle(numbersToTry);
+
+        for (int i = 0; i < 9; i++) {
+            if (isValid(board, row, col, numbersToTry.get(i))) {
+                board.set(row, col, numbersToTry.get(i));
                 if (solve(board, row, col + 1)) {
                     return true;
                 }
