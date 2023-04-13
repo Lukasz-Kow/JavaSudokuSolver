@@ -7,5 +7,7 @@ public class Main {
         sudokuBoard.solve();
         sudokuBoard.printBoard();
         sudokuBoard.checkBoard();
+
+        System.out.println(sudokuBoard.getBox(0));
     }
 }

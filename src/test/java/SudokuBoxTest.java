@@ -11,7 +11,7 @@ class SudokuBoxTest {
     void printBoxTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
         sudokuBox.print();
         assertNotNull(sudokuBox);
     }
@@ -21,7 +21,7 @@ class SudokuBoxTest {
     void BoxIsValidTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
         assertTrue(sudokuBox.isValid());
     }
 
@@ -32,7 +32,7 @@ class SudokuBoxTest {
         sudokuBoard.solve();
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(0,1,1);
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
         assertFalse(sudokuBox.isValid());
     }
 
@@ -42,7 +42,7 @@ class SudokuBoxTest {
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         sudokuBoard.set(0,0,0);
-        SudokuBox sudokuBox = sudokuBoard.getBox(0,0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
         assertFalse(sudokuBox.isValid());
     }
 
