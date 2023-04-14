@@ -27,4 +27,37 @@ public class SudokuRow extends SudokuElement {
         System.out.println();
     }
 
+    @Override
+    public String toString() {
+        String message = "";
+        for (int i = 0; i < 9; i++) {
+            message += row.get(i).getFieldValue() + " ";
+        }
+        return "SudokuRow: \n" + message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof SudokuRow)) {
+            return false;
+        }
+
+        SudokuRow tempRow = (SudokuRow) o;
+
+        // Perform checking
+        for (int i = 0; i < 9; i++) {
+            if (row.get(i).getFieldValue() != tempRow.row.get(i).getFieldValue()) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
 }

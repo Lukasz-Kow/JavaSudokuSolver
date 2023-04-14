@@ -121,4 +121,48 @@ public class SudokuBoard {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        String message = "";
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                message += fields.get(i + j * 9).getFieldValue() + " ";
+                if (j == 2 || j == 5) {
+                    message += "| ";
+                }
+            }
+            message += "\n";
+            if (i == 2 || i == 5) {
+                message += "--------------------- \n";
+            }
+
+        }
+        return "SudokuBoard: \n" + message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof SudokuBoard)) {
+            return false;
+        }
+
+        SudokuBoard tempBoard = (SudokuBoard) o;
+
+        // Perform checking
+        for (int i = 0; i < 81; i++) {
+            if (fields.get(i).getFieldValue() != tempBoard.fields.get(i).getFieldValue()) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
 }

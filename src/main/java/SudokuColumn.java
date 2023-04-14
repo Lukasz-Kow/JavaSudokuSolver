@@ -25,4 +25,37 @@ public class SudokuColumn extends SudokuElement {
         }
         System.out.println();
     }
+
+    @Override
+    public String toString() {
+        String message = "";
+        for (int i = 0; i < 9; i++) {
+            message += column.get(i).getFieldValue() + " ";
+        }
+        return "SudokuColumn: \n" + message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof SudokuColumn)) {
+            return false;
+        }
+
+        SudokuColumn tempColumn = (SudokuColumn) o;
+
+        // Perform checking
+        for (int i = 0; i < 9; i++) {
+            if (column.get(i).getFieldValue() != tempColumn.column.get(i).getFieldValue()) {
+                return false;
+            }
+        }
+        return true;
+
+    }
 }
