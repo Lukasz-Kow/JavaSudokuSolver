@@ -147,4 +147,50 @@ class SudokuRowTest {
         assertFalse(sudokuBoard.checkBoard());
 
     }
+
+    @Test
+    void SudokuRowEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
+        assertEquals(sudokuRow,sudokuRow2);
+    }
+
+    @Test
+    void SudokuRowNotEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        SudokuRow sudokuRow2 = sudokuBoard.getRow(1);
+        assertNotEquals(sudokuRow,sudokuRow2);
+    }
+
+    @Test
+    void SudokuRowHashCodeTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
+        assertEquals(sudokuRow.hashCode(),sudokuRow2.hashCode());
+    }
+
+    @Test
+    void SudokuRowToStringTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        String expected = "1 2 3 4 5 6 7 8 9 ";
+        assertNotEquals(expected,sudokuRow.toString());
+    }
+
+    @Test
+    void CheckIfObjIsAnInstanceOfSudokuRow(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuRow sudokuRow = sudokuBoard.getRow(0);
+        Object obj = new Object();
+        boolean result = sudokuRow.equals(obj);
+        assertFalse(result);
+    }
 }

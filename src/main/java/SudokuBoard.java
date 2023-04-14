@@ -1,3 +1,8 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.*;
 
 public class SudokuBoard {
@@ -123,46 +128,40 @@ public class SudokuBoard {
     }
 
     @Override
-    public String toString() {
-        String message = "";
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                message += fields.get(i + j * 9).getFieldValue() + " ";
-                if (j == 2 || j == 5) {
-                    message += "| ";
-                }
-            }
-            message += "\n";
-            if (i == 2 || i == 5) {
-                message += "--------------------- \n";
-            }
-
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
         }
-        return "SudokuBoard: \n" + message;
+        if (!(obj instanceof SudokuBoard)) {
+            return false;
+        }
+        SudokuBoard other = (SudokuBoard) obj;
+        return new EqualsBuilder()
+                .append(this.rows, other.rows)
+                .append(this.columns, other.columns)
+                .append(this.boxes, other.boxes)
+                .append(this.fields, other.fields)
+                .isEquals();
     }
 
     @Override
-    public boolean equals(Object o) {
-
-        // If the object is compared with itself then return true
-        if (o == this) {
-            return true;
-        }
-
-        if (!(o instanceof SudokuBoard)) {
-            return false;
-        }
-
-        SudokuBoard tempBoard = (SudokuBoard) o;
-
-        // Perform checking
-        for (int i = 0; i < 81; i++) {
-            if (fields.get(i).getFieldValue() != tempBoard.fields.get(i).getFieldValue()) {
-                return false;
-            }
-        }
-
-        return true;
-
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("rows", rows)
+                .append("columns", columns)
+                .append("boxes", boxes)
+                .append("fields", fields)
+                .toString();
     }
+
+    @Override
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(rows);
+        builder.append(columns);
+        builder.append(boxes);
+        builder.append(fields);
+        return builder.toHashCode();
+    }
+
 }

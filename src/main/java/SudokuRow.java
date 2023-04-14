@@ -1,4 +1,10 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.List;
+
 
 public class SudokuRow extends SudokuElement {
     private List<SudokuField> row;
@@ -29,35 +35,31 @@ public class SudokuRow extends SudokuElement {
 
     @Override
     public String toString() {
-        String message = "";
-        for (int i = 0; i < 9; i++) {
-            message += row.get(i).getFieldValue() + " ";
-        }
-        return "SudokuRow: \n" + message;
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("row", row)
+                .toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-
-        // If the object is compared with itself then return true
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-
-        if (!(o instanceof SudokuRow)) {
+        if (!(obj instanceof SudokuRow)) {
             return false;
         }
+        SudokuRow other = (SudokuRow) obj;
+        return new EqualsBuilder()
+                .append(row, other.row)
+                .isEquals();
+    }
 
-        SudokuRow tempRow = (SudokuRow) o;
 
-        // Perform checking
-        for (int i = 0; i < 9; i++) {
-            if (row.get(i).getFieldValue() != tempRow.row.get(i).getFieldValue()) {
-                return false;
-            }
-        }
-        return true;
-
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(row)
+                .toHashCode();
     }
 
 }

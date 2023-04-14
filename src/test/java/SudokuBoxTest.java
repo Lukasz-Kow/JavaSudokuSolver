@@ -146,4 +146,50 @@ class SudokuBoxTest {
         assertFalse(sudokuBoard.checkBoard());
 
     }
+
+    @Test
+    void SudokuBoxEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(0);
+        assertEquals(sudokuBox,sudokuBox2);
+    }
+
+    @Test
+    void CheckIfObjIsAnInstanceOfSudokuBox(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        Object obj = new Object();
+        boolean result = sudokuBox.equals(obj);
+        assertFalse(result);
+    }
+
+    @Test
+    void SudokuBoxNotEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(1);
+        assertNotEquals(sudokuBox,sudokuBox2);
+    }
+
+    @Test
+    void SudokuBoxHashCodeTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(0);
+        assertEquals(sudokuBox.hashCode(),sudokuBox2.hashCode());
+    }
+
+    @Test
+    void SudokuBoxToStringTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        String expected = "1 2 3 4 5 6 7 8 9 ";
+        assertNotEquals(expected,sudokuBox.toString());
+    }
 }

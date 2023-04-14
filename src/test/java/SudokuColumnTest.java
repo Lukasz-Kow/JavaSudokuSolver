@@ -143,4 +143,46 @@ class SudokuColumnTest {
         assertFalse(sudokuBoard.checkBoard());
 
     }
+
+    @Test
+    void CheckIfObjIsAnInstanceOfSudokuColumn(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        Object obj = new Object();
+        boolean result = sudokuColumn.equals(obj);
+        assertFalse(result);
+    }
+
+    @Test
+    void SudokuColumnEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(0);
+        assertEquals(sudokuColumn,sudokuColumn2);
+    }
+
+    @Test
+    void SudokuColumnNotEqualsTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
+        assertNotEquals(sudokuColumn,sudokuColumn2);
+    }
+
+    @Test
+    void SudokuColumnHashCodeTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard2.solve();
+        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
+
+        assertNotEquals(sudokuColumn.hashCode(),sudokuColumn2.hashCode());
+    }
+
+
 }

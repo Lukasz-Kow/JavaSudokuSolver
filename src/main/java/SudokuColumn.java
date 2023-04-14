@@ -1,4 +1,10 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.List;
+
 
 public class SudokuColumn extends SudokuElement {
     private List<SudokuField> column;
@@ -26,36 +32,36 @@ public class SudokuColumn extends SudokuElement {
         System.out.println();
     }
 
+
     @Override
     public String toString() {
-        String message = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 9; i++) {
-            message += column.get(i).getFieldValue() + " ";
+            sb.append(column.get(i).getFieldValue());
+            sb.append("\n");
         }
-        return "SudokuColumn: \n" + message;
+        return sb.toString();
     }
 
     @Override
-    public boolean equals(Object o) {
-
-        // If the object is compared with itself then return true
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-
-        if (!(o instanceof SudokuColumn)) {
+        if (!(obj instanceof SudokuColumn)) {
             return false;
         }
-
-        SudokuColumn tempColumn = (SudokuColumn) o;
-
-        // Perform checking
-        for (int i = 0; i < 9; i++) {
-            if (column.get(i).getFieldValue() != tempColumn.column.get(i).getFieldValue()) {
-                return false;
-            }
-        }
-        return true;
-
+        SudokuColumn other = (SudokuColumn) obj;
+        return new EqualsBuilder()
+                .append(column, other.column)
+                .isEquals();
     }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(column)
+                .toHashCode();
+    }
+
 }

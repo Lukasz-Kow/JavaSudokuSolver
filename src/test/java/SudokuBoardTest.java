@@ -198,5 +198,34 @@ class SudokuBoardTest {
         assertFalse(sudokuBoard.checkBoard());
     }
 
+    @Test
+    void CheckIfObjIsAnInstanceOfSudokuBoard(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        Object obj = new Object();
+        boolean result = sudokuBoard.equals(obj);
+        assertFalse(result);
+    }
 
+    @Test
+    public void SudokuBoardEqualsSameObject() {
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        assertTrue(sudokuBoard.equals(sudokuBoard));
+    }
+    @Test
+    void SudokuBoardHashCodeTest(){
+        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
+        sudokuBoard1.solve();
+        sudokuBoard2.solve();
+        assertNotEquals(sudokuBoard1.hashCode(), sudokuBoard2.hashCode());
+    }
+
+    @Test
+    void SudokuBoardToStringTest(){
+        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
+        sudokuBoard1.solve();
+        assertNotNull(sudokuBoard1.toString());
+    }
 }

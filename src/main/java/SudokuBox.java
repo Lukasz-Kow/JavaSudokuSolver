@@ -1,4 +1,11 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.List;
+
+
 
 public class SudokuBox extends SudokuElement {
     private List<SudokuField> box;
@@ -25,38 +32,38 @@ public class SudokuBox extends SudokuElement {
         }
     }
 
-    @Override
-    public String toString() {
-        String message = "";
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                message += box.get(i * 3 + j).getFieldValue() + " ";
-            }
-            message += "\n";
-        }
-        return "SudokuBox: \n" + message;
-    }
 
     @Override
-    public boolean equals(Object o) {
-
-        // If the object is compared with itself then return true
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
 
-        if (!(o instanceof SudokuBox)) {
+        if (!(obj instanceof SudokuBox)) {
             return false;
         }
 
-        SudokuBox tempBox = (SudokuBox) o;
+        SudokuBox other = (SudokuBox) obj;
 
-        // Perform checking
-        for (int i = 0; i < 9; i++) {
-            if (box.get(i).getFieldValue() != tempBox.box.get(i).getFieldValue()) {
-                return false;
-            }
-        }
-        return true;
+        return new EqualsBuilder()
+                .append(box, other.box)
+                .isEquals();
     }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("box", box)
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        for (int i = 0; i < box.size(); i++) {
+            builder.append(box.get(i).getFieldValue());
+        }
+        return builder.toHashCode();
+    }
+
 }
