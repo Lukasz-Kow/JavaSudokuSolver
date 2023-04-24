@@ -1,3 +1,6 @@
+package IFE_MP_LK;
+
+
 public class SudokuBoardDaoFactory {
 
 

@@ -1,3 +1,4 @@
+package IFE_MP_LK;
 
 public class FileSudokuBoardDao<SudokuBoard> implements Dao<SudokuBoard> {
 

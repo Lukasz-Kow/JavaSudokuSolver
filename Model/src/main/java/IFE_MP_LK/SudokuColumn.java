@@ -1,3 +1,6 @@
+package IFE_MP_LK;
+
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -6,18 +9,18 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.List;
 
 
-public class SudokuRow extends SudokuElement {
-    private List<SudokuField> row;
+public class SudokuColumn extends SudokuElement {
+    private List<SudokuField> column;
 
-    public SudokuRow(List<SudokuField> row) {
-        this.row = row;
+    public SudokuColumn(List<SudokuField> column) {
+        this.column = column;
     }
 
     boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (row.get(i).getFieldValue() == row.get(j).getFieldValue()
-                        || row.get(i).getFieldValue() == 0) {
+                if (column.get(i).getFieldValue() == column.get(j).getFieldValue()
+                        || column.get(i).getFieldValue() == 0) {
                     return false;
                 }
             }
@@ -25,19 +28,22 @@ public class SudokuRow extends SudokuElement {
         return true;
     }
 
-
     void print() {
         for (int i = 0; i < 9; i++) {
-            System.out.print(row.get(i).getFieldValue() + " ");
+            System.out.print(column.get(i).getFieldValue() + "\n");
         }
         System.out.println();
     }
 
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("row", row)
-                .toString();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            sb.append(column.get(i).getFieldValue());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -45,20 +51,19 @@ public class SudokuRow extends SudokuElement {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof SudokuRow)) {
+        if (!(obj instanceof SudokuColumn)) {
             return false;
         }
-        SudokuRow other = (SudokuRow) obj;
+        SudokuColumn other = (SudokuColumn) obj;
         return new EqualsBuilder()
-                .append(row, other.row)
+                .append(column, other.column)
                 .isEquals();
     }
-
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(row)
+                .append(column)
                 .toHashCode();
     }
 

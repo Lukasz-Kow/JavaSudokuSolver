@@ -1,5 +1,6 @@
-import org.apache.commons.lang3.builder.*;
+package IFE_MP_LK;
 
+import org.apache.commons.lang3.builder.*;
 public class SudokuField {
     private int value;
 

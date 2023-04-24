@@ -1,3 +1,5 @@
+package IFE_MP_LK;
+
 public class SudokuTestValidatorHelper {
 
     public boolean isValid(SudokuBoard sudokuBoard) {

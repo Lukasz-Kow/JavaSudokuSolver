@@ -3,13 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>groupId</groupId>
+        <artifactId>ww_thu_1145_05</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-    <groupId>groupId</groupId>
-    <artifactId>ww_thu_1145_05</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <groupId>IFE_MP_LK</groupId>
+    <artifactId>ModelProject</artifactId>
 
-    <description>Laboratory group ww_thu_1145_05</description>
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <licenses>
         <license>
@@ -31,13 +38,6 @@
             <email>242163@edu.p.lodz.pl</email>
         </developer>
     </developers>
-    <modules>
-        <module>Model</module>
-    </modules>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>19</maven.compiler.release>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -186,4 +186,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
