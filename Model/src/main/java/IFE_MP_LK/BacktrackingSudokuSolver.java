@@ -1,10 +1,11 @@
 package IFE_MP_LK;
+import java.io.Serializable;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class BacktrackingSudokuSolver implements SudokuSolver {
+public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
     public void solve(SudokuBoard board) {
         if (!solve(board, 0, 0)) {

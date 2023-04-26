@@ -142,7 +142,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void EmptyMainTest(){
+    void EmptyMainTest() throws Exception {
         Main main = new Main();
         main.main(new String[0]);
     }

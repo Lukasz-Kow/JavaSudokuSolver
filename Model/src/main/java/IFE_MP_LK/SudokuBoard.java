@@ -5,9 +5,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class SudokuBoard {
+public class SudokuBoard implements Serializable {
 
 
     private List<SudokuRow> rows = Arrays.asList(new SudokuRow[9]);

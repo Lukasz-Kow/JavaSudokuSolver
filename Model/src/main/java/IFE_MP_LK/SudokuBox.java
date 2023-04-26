@@ -10,7 +10,7 @@ import java.util.List;
 
 
 
-public class SudokuBox extends SudokuElement {
+public class SudokuBox extends SudokuElement  {
     private List<SudokuField> box;
 
     public SudokuBox(List<SudokuField> box) {

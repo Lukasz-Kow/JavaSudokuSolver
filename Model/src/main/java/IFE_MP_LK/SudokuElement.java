@@ -1,7 +1,9 @@
 package IFE_MP_LK;
 
 
-abstract class SudokuElement {
+import java.io.Serializable;
+
+abstract class SudokuElement implements Serializable {
 
     abstract boolean isValid();
 

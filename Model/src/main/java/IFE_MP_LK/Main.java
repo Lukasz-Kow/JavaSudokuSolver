@@ -1,8 +1,10 @@
 package IFE_MP_LK;
 
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
 
@@ -13,21 +15,16 @@ public class Main {
         sudokuBoard.printBoard();
         sudokuBoard.checkBoard();
 
-        //        sudokuBoard2 = sudokuBoard;
-        //
-        //        System.out.println(sudokuBoard.getRow(0) == sudokuBoard.getRow(1));
-        //        System.out.println(sudokuBoard.getRow(0) == sudokuBoard.getRow(0));
-        //
-        //        System.out.println(sudokuBoard.getColumn(0) == sudokuBoard.getColumn(1));
-        //        System.out.println(sudokuBoard.getColumn(0) == sudokuBoard.getColumn(0));
-        //
-        //        System.out.println(sudokuBoard.getBox(0) == sudokuBoard.getBox(1));
-        //        System.out.println(sudokuBoard.getBox(0) == sudokuBoard.getBox(0));
-        //
-        //        System.out.println(sudokuBoard.get(0,0) == sudokuBoard.get(0,0));
-        //        System.out.println(sudokuBoard.get(0,0) == sudokuBoard.get(1,0));
+        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+            dao.write(sudokuBoard);
+            System.out.println("Data possibly written");
+        }
+        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+            SudokuBoard previous = dao.read();
+            System.out.println("* Previous data\n" + previous.getBox(0).toString());
+        }
 
-        //        System.out.println(sudokuBoard == sudokuBoard2);
 
 
 
