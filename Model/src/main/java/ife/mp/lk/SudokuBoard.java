@@ -1,4 +1,4 @@
-package IFE_MP_LK;
+package ife.mp.lk;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

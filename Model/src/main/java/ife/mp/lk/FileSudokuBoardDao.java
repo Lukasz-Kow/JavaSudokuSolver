@@ -1,4 +1,4 @@
-package IFE_MP_LK;
+package ife.mp.lk;
 
 import java.io.*;
 import java.util.logging.Level;

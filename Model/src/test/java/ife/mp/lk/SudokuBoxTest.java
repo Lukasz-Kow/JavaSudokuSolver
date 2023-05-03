@@ -1,57 +1,60 @@
-package IFE_MP_LK;
+package ife.mp.lk;
 
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SudokuColumnTest {
+class SudokuBoxTest {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
     @Test
-    void printColumnTest(){
+    void printBoxTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        sudokuColumn.print();
-        assertNotNull(sudokuColumn);
-    }
-
-    @Test
-    void columnIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        assertTrue(sudokuColumn.isValid());
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        sudokuBox.print();
+        assertNotNull(sudokuBox);
     }
 
 
     @Test
-    void SudokuColumnIsNotValidTest(){
+    void BoxIsValidTest(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        assertTrue(sudokuBox.isValid());
+    }
+
+
+    @Test
+    void SudokuBoxIsNotValidTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         sudokuBoard.set(0,0,1);
-        sudokuBoard.set(2,0,1);
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        assertFalse(sudokuColumn.isValid());
+        sudokuBoard.set(0,1,1);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        assertFalse(sudokuBox.isValid());
     }
 
+
     @Test
-    void SudokuColumnsFieldEqual0Test(){
+    void SudokuBoxsFieldEqual0Test(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
         sudokuBoard.set(0,0,0);
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        assertFalse(sudokuColumn.isValid());
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        assertFalse(sudokuBox.isValid());
     }
-//row test
+
+
     @Test
-    void SudokuColumnTestUsingCheckBoard(){
+    void SudokuBoxTestUsingCheckBoard(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
 
         sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,1,2);
+        sudokuBoard.set(0,1,1);
         sudokuBoard.set(0,2,3);
         sudokuBoard.set(0,3,4);
         sudokuBoard.set(0,4,5);
@@ -60,7 +63,7 @@ class SudokuColumnTest {
         sudokuBoard.set(0,7,8);
         sudokuBoard.set(0,8,9);
 
-        sudokuBoard.set(1,0,7);
+        sudokuBoard.set(1,0,4);
         sudokuBoard.set(1,1,5);
         sudokuBoard.set(1,2,6);
         sudokuBoard.set(1,3,7);
@@ -70,7 +73,7 @@ class SudokuColumnTest {
         sudokuBoard.set(1,7,2);
         sudokuBoard.set(1,8,3);
 
-        sudokuBoard.set(2,0,4);
+        sudokuBoard.set(2,0,7);
         sudokuBoard.set(2,1,8);
         sudokuBoard.set(2,2,9);
         sudokuBoard.set(2,3,1);
@@ -147,44 +150,48 @@ class SudokuColumnTest {
     }
 
     @Test
-    void CheckIfObjIsAnInstanceOfSudokuColumn(){
+    void SudokuBoxEqualsTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(0);
+        assertEquals(sudokuBox,sudokuBox2);
+    }
+
+    @Test
+    void CheckIfObjIsAnInstanceOfSudokuBox(){
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
         Object obj = new Object();
-        boolean result = sudokuColumn.equals(obj);
+        boolean result = sudokuBox.equals(obj);
         assertFalse(result);
     }
 
     @Test
-    void SudokuColumnEqualsTest(){
+    void SudokuBoxNotEqualsTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(0);
-        assertEquals(sudokuColumn,sudokuColumn2);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(1);
+        assertNotEquals(sudokuBox,sudokuBox2);
     }
 
     @Test
-    void SudokuColumnNotEqualsTest(){
+    void SudokuBoxHashCodeTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
-        assertNotEquals(sudokuColumn,sudokuColumn2);
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        SudokuBox sudokuBox2 = sudokuBoard.getBox(0);
+        assertEquals(sudokuBox.hashCode(),sudokuBox2.hashCode());
     }
 
     @Test
-    void SudokuColumnHashCodeTest(){
+    void SudokuBoxToStringTest(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
         sudokuBoard.solve();
-        sudokuBoard2.solve();
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
-
-        assertNotEquals(sudokuColumn.hashCode(),sudokuColumn2.hashCode());
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        String expected = "1 2 3 4 5 6 7 8 9 ";
+        assertNotEquals(expected,sudokuBox.toString());
     }
-
-
 }

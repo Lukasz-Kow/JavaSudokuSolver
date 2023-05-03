@@ -1,4 +1,4 @@
-package IFE_MP_LK;
+package ife.mp.lk;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

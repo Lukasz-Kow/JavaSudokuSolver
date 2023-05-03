@@ -1,4 +1,4 @@
-package IFE_MP_LK;
+package ife.mp.lk;
 
 interface SudokuSolver {
     void solve(SudokuBoard board);
