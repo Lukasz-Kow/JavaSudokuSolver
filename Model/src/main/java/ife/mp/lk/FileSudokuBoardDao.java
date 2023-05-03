@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FileSudokuBoardDao<SudokuBoard> implements Dao<SudokuBoard>, AutoCloseable {
+public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, AutoCloseable {
 
     private String fileName;
 
@@ -18,7 +18,7 @@ public class FileSudokuBoardDao<SudokuBoard> implements Dao<SudokuBoard>, AutoCl
     }
 
     @Override
-    public SudokuBoard read() throws IOException, ClassNotFoundException {
+    public SudokuBoardT read() throws IOException, ClassNotFoundException {
         if (fis != null || ois != null) {
             throw new RuntimeException("reader already used");
         }
@@ -26,7 +26,7 @@ public class FileSudokuBoardDao<SudokuBoard> implements Dao<SudokuBoard>, AutoCl
             fis = new FileInputStream(fileName);
             ois = new ObjectInputStream(fis);
 
-            SudokuBoard board = (SudokuBoard) ois.readObject();
+            SudokuBoardT board = (SudokuBoardT) ois.readObject();
             ois.close();
             fis.close();
             return board;
@@ -37,7 +37,7 @@ public class FileSudokuBoardDao<SudokuBoard> implements Dao<SudokuBoard>, AutoCl
     }
 
     @Override
-    public void write(SudokuBoard obj) throws IOException {
+    public void write(SudokuBoardT obj) throws IOException {
         if (fos != null || oos != null) {
             throw new RuntimeException("writer already used");
         }
