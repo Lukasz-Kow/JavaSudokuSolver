@@ -48,7 +48,31 @@ class SudokuBoxTest {
         assertFalse(sudokuBox.isValid());
     }
 
+    @Test
+    public void testEqualsWithDifferentClass() {
+        SudokuField field = new SudokuField(5);
+        Integer other;
+        other = new Integer(5);
+        assertFalse(field.equals(other));
+    }
 
+    @Test
+    public void SudokuFieldtestEquals() {
+        SudokuField field1 = new SudokuField(1);
+        SudokuField field2 = new SudokuField(1);
+        SudokuField field3 = new SudokuField(2);
+
+
+
+        // test reflexive property
+        assertTrue(field1.equals(field1));
+
+        // test symmetric property
+        assertTrue(field1.equals(field2));
+        assertTrue(field2.equals(field1));
+        assertFalse(field1.equals(field3));
+        assertFalse(field3.equals(field1));
+    }
     @Test
     void SudokuBoxTestUsingCheckBoard(){
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
