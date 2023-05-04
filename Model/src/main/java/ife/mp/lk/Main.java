@@ -15,15 +15,15 @@ public class Main {
     //        sudokuBoard.printBoard();
     //        sudokuBoard.checkBoard();
     //
-    //        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-    //try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
-    //            dao.write(sudokuBoard);
-    //            System.out.println("Data possibly written");
-    //        }
-    //try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
-    //            SudokuBoard previous = dao.read();
-    //            System.out.println("* Previous data\n" + previous.getBox(0).toString());
-    //        }
+//            SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+//    try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+//                dao.write(sudokuBoard);
+//                System.out.println("Data possibly written");
+//            }
+//    try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+//                SudokuBoard previous = dao.read();
+//                System.out.println("* Previous data\n" + previous.getBox(0).toString());
+//            }
 
 
 
