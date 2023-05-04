@@ -14,7 +14,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>./license.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -63,7 +63,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.20.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
