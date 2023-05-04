@@ -3,6 +3,8 @@ package ife.mp.lk;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -36,12 +38,9 @@ public class SudokuColumn extends SudokuElement {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 9; i++) {
-            sb.append(column.get(i).getFieldValue());
-            sb.append("\n");
-        }
-        return sb.toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("column", column)
+                .toString();
     }
 
     @Override
