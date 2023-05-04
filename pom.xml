@@ -14,7 +14,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>./license.txt</url>
+            <url>LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
