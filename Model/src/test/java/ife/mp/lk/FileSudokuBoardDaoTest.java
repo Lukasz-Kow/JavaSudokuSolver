@@ -33,6 +33,27 @@ public class FileSudokuBoardDaoTest {
         }
 
     }
+
+    @Test
+    void fisReadTestExec() throws Exception {
+        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+            dao.read();
+            dao.read();
+        } catch (RuntimeException | ClassNotFoundException e) {
+            System.out.println("Exception caught");
+        }
+    }
+
+    @Test
+    void fisWriteTestExec() throws Exception {
+        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+            dao.write(sudokuBoard);
+            dao.write(sudokuBoard);
+        } catch (RuntimeException e) {
+            System.out.println("Exception caught");
+        }
+    }
+
     @Test
     void readFailTest() throws Exception {
 
@@ -54,6 +75,40 @@ public class FileSudokuBoardDaoTest {
             System.out.println("Data possibly written");
         } catch (RuntimeException e) {
             System.out.println("File not found");
+        }
+    }
+
+    @Test
+    void readIOException() throws Exception {
+        FileSudokuBoardDao<SudokuBoard> dao = new FileSudokuBoardDao<>("nonexistent.txt");
+        try {
+            SudokuBoard board = dao.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void closeIOException() throws Exception {
+        FileSudokuBoardDao<SudokuBoard> dao = new FileSudokuBoardDao<>("nonexistent.txt");
+        try {
+            dao.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void finaliseTest() {
+        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>) factory.getFileDao("test.txt")) {
+            dao.read();
+            dao.finalise();
+            dao.write(sudokuBoard);
+
+        } catch (IOException e) {
+            System.out.println("IOException caught");
+        } catch (Throwable e) {
+            System.out.println("Throwable caught");
         }
     }
 

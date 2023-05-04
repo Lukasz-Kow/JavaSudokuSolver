@@ -62,12 +62,8 @@ class SudokuBoxTest {
         SudokuField field2 = new SudokuField(1);
         SudokuField field3 = new SudokuField(2);
 
-
-
-        // test reflexive property
         assertTrue(field1.equals(field1));
 
-        // test symmetric property
         assertTrue(field1.equals(field2));
         assertTrue(field2.equals(field1));
         assertFalse(field1.equals(field3));
