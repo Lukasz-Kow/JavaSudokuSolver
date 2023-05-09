@@ -2,10 +2,34 @@ package ife.mp.lk;
 
 
 import java.io.Serializable;
+import java.util.List;
 
-abstract class SudokuElement implements Serializable {
+class SudokuElement implements Serializable {
 
-    abstract boolean isValid();
+    public List<SudokuField> elements;
 
-    abstract void print();
+    SudokuElement(List<SudokuField> elements) {
+        if (elements.size() != 9) {
+            throw new IllegalArgumentException("Entity must contain 9 fields");
+        }
+        this.elements = elements;
+    }
+
+    boolean isValid() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = i + 1; j < 9; j++) {
+                if (elements.get(i).getFieldValue() == elements.get(j).getFieldValue()
+                        || elements.get(i).getFieldValue() == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    void print() {
+        for (int i = 0; i < 9; i++) {
+            System.out.print(elements.get(i).getFieldValue() + " ");
+        }
+    }
 }

@@ -10,42 +10,16 @@ import java.util.List;
 
 
 public class SudokuColumn extends SudokuElement {
-    private List<SudokuField> column;
 
-    /*
-     * Add verification if there are 9 fields in the list
-     */
+
     public SudokuColumn(List<SudokuField> column) {
-        if (column.size() != 9) {
-            throw new IllegalArgumentException("Column must contain 9 fields");
-        }
-        this.column = column;
+        super(column);
     }
-
-    boolean isValid() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = i + 1; j < 9; j++) {
-                if (column.get(i).getFieldValue() == column.get(j).getFieldValue()
-                        || column.get(i).getFieldValue() == 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    void print() {
-        for (int i = 0; i < 9; i++) {
-            System.out.print(column.get(i).getFieldValue() + "\n");
-        }
-        System.out.println();
-    }
-
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("column", column)
+                .append("column", elements)
                 .toString();
     }
 
@@ -59,14 +33,14 @@ public class SudokuColumn extends SudokuElement {
         }
         SudokuColumn other = (SudokuColumn) obj;
         return new EqualsBuilder()
-                .append(column, other.column)
+                .append(elements, other.elements)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(column)
+                .append(elements)
                 .toHashCode();
     }
 

@@ -11,36 +11,12 @@ import java.util.List;
 
 
 public class SudokuBox extends SudokuElement  {
-    private List<SudokuField> box;
 
-    /*
-     * Add verification if there are 9 fields in the list
-     */
+
+
     public SudokuBox(List<SudokuField> box) {
-        if (box.size() != 9) {
-            throw new IllegalArgumentException("Box must contain 9 fields");
-        }
-        this.box = box;
+        super(box);
     }
-
-    boolean isValid() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = i + 1; j < 9; j++) {
-                if (box.get(i).getFieldValue() == box.get(j).getFieldValue()
-                        || box.get(i).getFieldValue() == 0) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    void print() {
-        for (int i = 0; i < 9; i++) {
-            System.out.print(box.get(i).getFieldValue() + " ");
-        }
-    }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -55,22 +31,22 @@ public class SudokuBox extends SudokuElement  {
         SudokuBox other = (SudokuBox) obj;
 
         return new EqualsBuilder()
-                .append(box, other.box)
+                .append(elements, other.elements)
                 .isEquals();
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("box", box)
+                .append("box", elements)
                 .toString();
     }
 
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        for (int i = 0; i < box.size(); i++) {
-            builder.append(box.get(i).getFieldValue());
+        for (int i = 0; i < elements.size(); i++) {
+            builder.append(elements.get(i).getFieldValue());
         }
         return builder.toHashCode();
     }
