@@ -12,7 +12,13 @@ import java.util.List;
 public class SudokuRow extends SudokuElement {
     private List<SudokuField> row;
 
+    /*
+     * Add verification if there are 9 fields in the list
+     */
     public SudokuRow(List<SudokuField> row) {
+        if (row.size() != 9) {
+            throw new IllegalArgumentException("Row must contain 9 fields");
+        }
         this.row = row;
     }
 

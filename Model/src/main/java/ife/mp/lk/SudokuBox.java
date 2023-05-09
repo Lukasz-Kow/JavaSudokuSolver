@@ -13,7 +13,13 @@ import java.util.List;
 public class SudokuBox extends SudokuElement  {
     private List<SudokuField> box;
 
+    /*
+     * Add verification if there are 9 fields in the list
+     */
     public SudokuBox(List<SudokuField> box) {
+        if (box.size() != 9) {
+            throw new IllegalArgumentException("Box must contain 9 fields");
+        }
         this.box = box;
     }
 
