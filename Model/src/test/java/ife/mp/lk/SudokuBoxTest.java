@@ -3,6 +3,10 @@ package ife.mp.lk;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoxTest {
@@ -52,7 +56,7 @@ class SudokuBoxTest {
     public void testEqualsWithDifferentClass() {
         SudokuField field = new SudokuField(5);
         Integer other;
-        other = new Integer(5);
+        other = 5;
         assertFalse(field.equals(other));
     }
 
@@ -214,4 +218,18 @@ class SudokuBoxTest {
         String expected = "1 2 3 4 5 6 7 8 9 ";
         assertNotEquals(expected,sudokuBox.toString());
     }
+
+    @Test
+    void SudokuBoxMoreElementsTest(){
+        List<SudokuField> testList = Arrays.asList(new SudokuField[10]);
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            SudokuBox box = new SudokuBox(testList);
+        });
+
+        String expectedMessage = "Entity must contain 9 fields";
+        String actualMessage = e.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
+    }
+
 }
