@@ -32,7 +32,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             return board;
         } catch (IOException e) {
             System.out.println("IOException is caught: " + e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading file");
         }
     }
 
@@ -50,6 +50,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             fos.close();
         } catch (IOException e) {
             System.out.println("IOException is caught (write) " + e);
+            throw new RuntimeException("Error writing file");
         }
     }
 
@@ -65,6 +66,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
                 ois.close();
             } catch (IOException ex) {
                 Logger.getLogger(FileSudokuBoardDao.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException("Error closing file (input))");
             }
         }
 
@@ -74,6 +76,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
                 oos.close();
             } catch (IOException ex) {
                 Logger.getLogger(FileSudokuBoardDao.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException("Error closing file (output))");
             }
         }
     }
