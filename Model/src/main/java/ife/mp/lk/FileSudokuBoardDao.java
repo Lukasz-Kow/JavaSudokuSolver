@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, AutoCloseable {
 
-    private String fileName;
+    private final String fileName;
 
     FileInputStream fis = null;
     ObjectInputStream ois = null;
@@ -59,7 +59,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         if (fis != null || ois != null) {
             try {
                 fis.close();
