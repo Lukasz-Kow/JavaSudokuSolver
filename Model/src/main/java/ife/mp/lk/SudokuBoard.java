@@ -167,4 +167,32 @@ public class SudokuBoard implements Serializable {
         return builder.toHashCode();
     }
 
+    @Override
+    public SudokuBoard clone() {
+        SudokuBoard cloned = null;
+        try {
+            cloned = (SudokuBoard) super.clone();
+            cloned.rows = new ArrayList<>();
+            cloned.columns = new ArrayList<>();
+            cloned.boxes = new ArrayList<>();
+            cloned.fields = new ArrayList<>();
+
+            for (SudokuRow row : this.rows) {
+                cloned.rows.add((SudokuRow) row.clone());
+            }
+            for (SudokuColumn column : this.columns) {
+                cloned.columns.add((SudokuColumn) column.clone());
+            }
+            for (SudokuBox box : this.boxes) {
+                cloned.boxes.add((SudokuBox) box.clone());
+            }
+            for (SudokuField field : this.fields) {
+                cloned.fields.add((SudokuField) field.clone());
+            }
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return cloned;
+    }
+
 }
