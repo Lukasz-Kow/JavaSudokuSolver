@@ -6,11 +6,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 
-public class SudokuBox extends SudokuElement  {
+public class SudokuBox extends SudokuElement implements Cloneable  {
 
 
 
@@ -51,4 +52,17 @@ public class SudokuBox extends SudokuElement  {
         return builder.toHashCode();
     }
 
+    @Override
+    public SudokuBox clone() {
+        try {
+            SudokuBox cloned = (SudokuBox) super.clone();
+            cloned.elements = new ArrayList<>(elements.size());
+            for (SudokuField field : elements) {
+                cloned.elements.add(field.clone());
+            }
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
