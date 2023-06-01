@@ -11,7 +11,9 @@ public class FileSudokuBoardDaoTest {
 
     SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
     static BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
-    static SudokuBoard sudokuBoard = new SudokuBoard(solver);
+
+    static SudokuBoardsCache cache = new SudokuBoardsCache();
+    static SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
     @BeforeAll
     static void setUp() {

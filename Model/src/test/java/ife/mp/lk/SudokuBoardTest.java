@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
 
-    BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
     SudokuTestValidatorHelper validator = new SudokuTestValidatorHelper();
+
+    SudokuBoardsCache cache = new SudokuBoardsCache();
 
     @Test
     void solveEmptyBoard() {
 
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
         sudokuBoard.solve();
 
@@ -22,7 +23,7 @@ class SudokuBoardTest {
     @Test
     void cannotSolveUnresolvableBoard() {
 
-            SudokuBoard sudokuBoard = new SudokuBoard(solver);
+            SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
             sudokuBoard.set(0, 0, 1);
             sudokuBoard.set(0, 1, 2);
@@ -121,11 +122,10 @@ class SudokuBoardTest {
 
     @Test
     void test2SubsequentBoardsAreDifferent(){
-        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
-        sudokuBoard1.solve();
+        SudokuBoard sudokuBoard1 = cache.get("Solved Sudoku Board");
 
+        BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
-        sudokuBoard2.solve();
 
         assertNotEquals(sudokuBoard1, sudokuBoard2);
 
@@ -133,8 +133,7 @@ class SudokuBoardTest {
 
     @Test
     void printingBoardTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         sudokuBoard.printBoard();
 
         assertNotNull(sudokuBoard);
@@ -149,30 +148,27 @@ class SudokuBoardTest {
 
     @Test
     void IsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertTrue(validator.isValid(sudokuBoard));
     }
 
 
     @Test
     void columnIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         assertTrue(sudokuColumn.isValid());
     }
 
     @Test
     void checkBoardTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertTrue(sudokuBoard.checkBoard());
     }
 
     @Test
     void checkBoardTestNotValidBecauseOfRow(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
 
         // Filling every box with numbers
@@ -193,17 +189,16 @@ class SudokuBoardTest {
 
     @Test
     void checkBoardTestNotValidBecauseOfColumn(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard.set(0,0,1);
-        sudokuBoard.set(0,8,1);
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+//        sudokuBoard.set(0,0,1);
+//        sudokuBoard.set(0,8,1);
+        sudokuBoard.printBoard();
         assertFalse(sudokuBoard.checkBoard());
     }
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuBoard(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         Object obj = new Object();
         boolean result = sudokuBoard.equals(obj);
         assertFalse(result);
@@ -211,23 +206,19 @@ class SudokuBoardTest {
 
     @Test
     public void SudokuBoardEqualsSameObject() {
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertTrue(sudokuBoard.equals(sudokuBoard));
     }
     @Test
     void SudokuBoardHashCodeTest(){
-        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
-        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
-        sudokuBoard1.solve();
-        sudokuBoard2.solve();
-        assertNotEquals(sudokuBoard1.hashCode(), sudokuBoard2.hashCode());
+        SudokuBoard sudokuBoard1 = cache.get("Solved Sudoku Board");
+        SudokuBoard sudokuBoard2 = cache.get("Solved Sudoku Board");
+        assertEquals(sudokuBoard1.hashCode(), sudokuBoard2.hashCode());
     }
 
     @Test
     void SudokuBoardToStringTest(){
-        SudokuBoard sudokuBoard1 = new SudokuBoard(solver);
-        sudokuBoard1.solve();
-        assertNotNull(sudokuBoard1.toString());
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+        assertNotNull(sudokuBoard.toString());
     }
 }
