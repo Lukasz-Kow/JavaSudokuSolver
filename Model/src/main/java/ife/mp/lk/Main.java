@@ -6,8 +6,9 @@ public class Main {
             BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
             SudokuBoard sudokuBoard = new SudokuBoard(solver);
 
-
-
+            sudokuBoard.solve();
+            sudokuBoard.printBoard();
+            sudokuBoard.checkBoard();
 
             /*
                         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
