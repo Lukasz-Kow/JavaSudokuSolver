@@ -33,6 +33,7 @@
     </developers>
     <modules>
         <module>Model</module>
+        <module>ViewProject</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
