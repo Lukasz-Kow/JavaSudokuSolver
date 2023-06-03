@@ -130,6 +130,29 @@ public class SudokuBoard implements Serializable, Cloneable {
         return true;
     }
 
+    public void removeFieldsByDifficultyLevel(Level level) {
+        if (level == Level.EASY) {
+            removeFields(40);
+        } else if (level == Level.MEDIUM) {
+            removeFields(50);
+        } else if (level == Level.HARD) {
+            removeFields(60);
+        }
+    }
+
+    public void removeFields(int numberOfFieldsToRemove) {
+        Random random = new Random();
+        int counter = 0;
+        while (counter < numberOfFieldsToRemove) {
+            int x = random.nextInt(9);
+            int y = random.nextInt(9);
+            if (get(x, y) != 0) {
+                set(x, y, 0);
+                counter++;
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
