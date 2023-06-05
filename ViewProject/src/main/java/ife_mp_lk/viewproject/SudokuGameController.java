@@ -3,6 +3,7 @@ package ife_mp_lk.viewproject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -45,23 +46,51 @@ public class SudokuGameController {
     @FXML
     public void switchToGameView(ActionEvent event) {
         try {
-            // Load scene2.fxml
-            Parent scene2Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game-view.fxml")));
+            Button button = (Button) event.getSource();
+            String buttonText = button.getText();
 
-            // Create a new scene with scene2Root
-            Scene scene2 = new Scene(scene2Root);
+            String fxmlPath = "";
+            if (buttonText.equals("Easy")) {
+                fxmlPath = "easy-view.fxml";
+            } else if (buttonText.equals("Medium")) {
+                fxmlPath = "medium-view.fxml";
+            } else if (buttonText.equals("Hard")) {
+                fxmlPath = "hard-view.fxml";
+            }
 
-            // Get the current stage (window)
-            Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
+            Scene scene = new Scene(root);
 
-            // Set the new scene on the current stage
-            currentStage.setScene(scene2);
-            currentStage.show();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
 
-            difficultyLevel.setText("Dupcia");
+            difficultyLevel.setText(buttonText);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private void initialize() {
+        if (backButton != null) {
+            backButton.setOnAction(this::switchToMainMenu);
+        }
+    }
+    @FXML
+    private void switchToMainMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

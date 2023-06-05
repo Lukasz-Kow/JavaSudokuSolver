@@ -221,4 +221,25 @@ class SudokuBoardTest {
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertNotNull(sudokuBoard.toString());
     }
+
+    @Test
+    public void testRemoveFields() {
+        BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        sudokuBoard.solve();
+        sudokuBoard.removeFields(40); // Remove 40 fields
+
+        int count = 0;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (sudokuBoard.get(i, j) == 0) {
+                    count++;
+                }
+            }
+        }
+
+        assertEquals(40, count);
+    }
+
+
 }

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 
-public class SudokuField implements Serializable, Cloneable, Comparable<SudokuField>{
+public class SudokuField implements Serializable, Cloneable, Comparable<SudokuField> {
     private int value;
 
     public SudokuField(int value) {

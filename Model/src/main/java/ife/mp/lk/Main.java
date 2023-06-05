@@ -7,7 +7,7 @@ public class Main {
             SudokuBoard sudokuBoard = new SudokuBoard(solver);
 
             sudokuBoard.solve();
-//            sudokuBoard.printBoard();
+            //            sudokuBoard.printBoard();
             sudokuBoard.checkBoard();
 
             SudokuBoardsCache cache = new SudokuBoardsCache();
@@ -22,10 +22,10 @@ public class Main {
             System.out.println(sudokuBoard2.checkBoard());
 
             SudokuBoard sudokuBoard3 = cache.get("Empty Sudoku Board");
-//            sudokuBoard3.printBoard();
+            //            sudokuBoard3.printBoard();
 
-//            SudokuBoard sudokuBoard2 = (SudokuBoard) sudokuBoard.clone();
-//            System.out.println(sudokuBoard.equals(sudokuBoard2));
+            //            SudokuBoard sudokuBoard2 = (SudokuBoard) sudokuBoard.clone();
+            //            System.out.println(sudokuBoard.equals(sudokuBoard2));
 
             /*
                         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
