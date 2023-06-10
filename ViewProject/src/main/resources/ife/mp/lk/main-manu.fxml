@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.geometry.Insets?>
 <VBox alignment="CENTER" prefHeight="604.0" prefWidth="561.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ife.mp.lk.MainManuController">
 
    <Label fx:id="welcomeText" />
@@ -11,18 +12,32 @@
      <Label text="Select difficulty level:">
          <font>
             <Font size="18.0" />
-         </font></Label>
+         </font>
+     </Label>
      <Button onAction="#difficultyLevelClick" text="Easy">
          <font>
             <Font size="14.0" />
-         </font></Button>
+         </font>
+     </Button>
      <Button onAction="#difficultyLevelClick" text="Medium">
          <font>
             <Font size="14.0" />
-         </font></Button>
+         </font>
+     </Button>
      <Button onAction="#difficultyLevelClick" text="Hard">
          <font>
             <Font size="14.0" />
-         </font></Button>
+         </font>
+     </Button>
+       <Label fx:id="author" contentDisplay="CENTER" textAlignment="CENTER" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+           <GridPane.margin>
+               <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+           </GridPane.margin>
+       </Label>
+       <ComboBox fx:id="language" onAction="#getChosenLanguage" promptText="%Language" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+           <padding>
+               <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+           </padding>
+       </ComboBox>
     </VBox>
 </VBox>
