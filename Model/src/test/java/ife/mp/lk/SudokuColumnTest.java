@@ -9,10 +9,12 @@ class SudokuColumnTest {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
+    SudokuBoardsCache cache = new SudokuBoardsCache();
+
     @Test
     void printColumnTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         sudokuColumn.print();
         assertNotNull(sudokuColumn);
@@ -20,8 +22,8 @@ class SudokuColumnTest {
 
     @Test
     void columnIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         assertTrue(sudokuColumn.isValid());
     }
@@ -29,8 +31,8 @@ class SudokuColumnTest {
 
     @Test
     void SudokuColumnIsNotValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(2,0,1);
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
@@ -39,8 +41,8 @@ class SudokuColumnTest {
 
     @Test
     void SudokuColumnsFieldEqual0Test(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         sudokuBoard.set(0,0,0);
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         assertFalse(sudokuColumn.isValid());
@@ -48,7 +50,8 @@ class SudokuColumnTest {
 //row test
     @Test
     void SudokuColumnTestUsingCheckBoard(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
+
 
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(0,1,2);
@@ -148,8 +151,8 @@ class SudokuColumnTest {
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuColumn(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         Object obj = new Object();
         boolean result = sudokuColumn.equals(obj);
@@ -158,8 +161,8 @@ class SudokuColumnTest {
 
     @Test
     void SudokuColumnEqualsTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(0);
         assertEquals(sudokuColumn,sudokuColumn2);
@@ -167,8 +170,8 @@ class SudokuColumnTest {
 
     @Test
     void SudokuColumnNotEqualsTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
         assertNotEquals(sudokuColumn,sudokuColumn2);
@@ -176,10 +179,10 @@ class SudokuColumnTest {
 
     @Test
     void SudokuColumnHashCodeTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        SudokuBoard sudokuBoard2 = new SudokuBoard(solver);
-        sudokuBoard.solve();
-        sudokuBoard2.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
+        SudokuBoard sudokuBoard2 = cache.get("Solved Sudoku Board");
+
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         SudokuColumn sudokuColumn2 = sudokuBoard.getColumn(1);
 

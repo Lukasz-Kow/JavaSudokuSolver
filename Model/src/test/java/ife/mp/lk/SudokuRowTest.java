@@ -9,11 +9,11 @@ class SudokuRowTest {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
+    SudokuBoardsCache cache = new SudokuBoardsCache();
 
     @Test
     void printRowTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         sudokuRow.print();
         assertNotNull(sudokuRow);
@@ -22,8 +22,7 @@ class SudokuRowTest {
 
     @Test
     void rowIsValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         assertTrue(sudokuRow.isValid());
     }
@@ -31,8 +30,8 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowIsNotValidTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(1,0,1);
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
@@ -43,8 +42,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowsFieldEqual0Test(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         sudokuBoard.set(0,0,0);
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         assertFalse(sudokuRow.isValid());
@@ -52,7 +50,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowTestUsingCheckBoard(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
+        SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(0,1,2);
@@ -152,8 +150,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowEqualsTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
         assertEquals(sudokuRow,sudokuRow2);
@@ -161,8 +158,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowNotEqualsTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(1);
         assertNotEquals(sudokuRow,sudokuRow2);
@@ -170,8 +166,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowHashCodeTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
         assertEquals(sudokuRow.hashCode(),sudokuRow2.hashCode());
@@ -179,8 +174,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowToStringTest(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         String expected = "1 2 3 4 5 6 7 8 9 ";
         assertNotEquals(expected,sudokuRow.toString());
@@ -188,8 +182,7 @@ class SudokuRowTest {
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuRow(){
-        SudokuBoard sudokuBoard = new SudokuBoard(solver);
-        sudokuBoard.solve();
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         Object obj = new Object();
         boolean result = sudokuRow.equals(obj);

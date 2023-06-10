@@ -190,9 +190,9 @@ class SudokuBoardTest {
     @Test
     void checkBoardTestNotValidBecauseOfColumn(){
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-//        sudokuBoard.set(0,0,1);
-//        sudokuBoard.set(0,8,1);
-        sudokuBoard.printBoard();
+        sudokuBoard.set(0,0,1);
+        sudokuBoard.set(0,8,1);
+//        sudokuBoard.printBoard();
         assertFalse(sudokuBoard.checkBoard());
     }
 
