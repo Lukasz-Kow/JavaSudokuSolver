@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ife.mp.lk.SudokuGameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0"
+      prefWidth="561.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ife.mp.lk.SudokuGameController">
     <GridPane fx:id="sudokuBoardGrid" alignment="CENTER" layoutX="1.0" prefHeight="561.0" prefWidth="561.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,7 +38,6 @@
     </GridPane>
 
      <Button layoutX="260.0" layoutY="578.0" onAction="#switchToMainMenu" text="Back" />
-    <Button fx:id="buttonCheck" layoutX="165.0" layoutY="578.0" mnemonicParsing="false" onAction="#onActionButtonCheck" prefHeight="25.0" prefWidth="58.0" text="Check">
-    </Button>
+
 
 </Pane>

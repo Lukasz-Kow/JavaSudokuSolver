@@ -108,6 +108,10 @@ public class SudokuBoard implements Serializable, Cloneable {
         return boxes.get(x);
     }
 
+    public SudokuField getField(int x, int y) {
+        return fields.get(x + y * 9);
+    }
+
     public boolean checkBoard() {
         for (int j = 0; j < 9; j++) {
             if (!boxes.get(j).isValid()) {
@@ -132,11 +136,11 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     public void removeFieldsByDifficultyLevel(Level level) {
         if (level == Level.EASY) {
-            removeFields(level.value);
+            removeFields(20);
         } else if (level == Level.MEDIUM) {
-            removeFields(level.value);
+            removeFields(30);
         } else if (level == Level.HARD) {
-            removeFields(level.value);
+            removeFields(40);
         }
     }
 

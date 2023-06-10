@@ -2,6 +2,9 @@ package ife.mp.lk;
 
 import ife.mp.lk.Level;
 import ife.mp.lk.SudokuBoard;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.adapter.JavaBeanIntegerProperty;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +15,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.function.UnaryOperator;
 
 public class SudokuGameController {
 
@@ -40,20 +47,18 @@ public class SudokuGameController {
     @FXML
     private GridPane sudokuBoardGrid;
 
-    private final MessageBox messageBox = new MessageBox();
-    private final BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
-    private final SudokuBoard sudokuBoard = new SudokuBoard(solver);
-    private SudokuBoard sudokuBoardCopy;
+    private SudokuBoardsCache sudokuBoardsCache = new SudokuBoardsCache();
+    private final SudokuBoard sudokuBoard = sudokuBoardsCache.get("Solved Sudoku Board");
 
     @FXML
-    public void initialize() throws CloneNotSupportedException {
-        sudokuBoard.solve();
-        sudokuBoardCopy = (SudokuBoard) sudokuBoard.clone();
+    public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
+        System.out.println(MainManuController.getLevel());
         sudokuBoard.removeFieldsByDifficultyLevel(MainManuController.getLevel());
+        sudokuBoard.printBoard();
         fillGrid();
     }
 
-    private void fillGrid() {
+    private void fillGrid() throws NoSuchMethodException {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField textField = new TextField();
@@ -61,34 +66,39 @@ public class SudokuGameController {
                 textField.setFont(Font.font(18));
                 if (sudokuBoard.get(i, j) != 0) {
                     textField.setDisable(true);
-                    textField.setText(String.valueOf(sudokuBoard.get(i, j)));
                 }
-                sudokuBoardGrid.add(textField, i, j);
+
+                CustomStringConverter stringConverter = new CustomStringConverter();
+
+                UnaryOperator<TextFormatter.Change> textFilter = c -> {
+                    if (c.getText().matches("[1-9]")) {
+                        c.setRange(0, textField.getText().length());
+                        return c;
+                    } else {
+                        if (c.getText().isEmpty()) {
+                            return c;
+                        }
+                    }
+                    return null;
+                };
+
+                TextFormatter<Integer> textFormatter = new TextFormatter<Integer>(stringConverter, 0, textFilter);
+
+                textField.setTextFormatter(textFormatter);
+
+                JavaBeanIntegerProperty integerProperty =
+                        JavaBeanIntegerPropertyBuilder
+                                .create()
+                                .bean(sudokuBoard.getField(i, j))
+                                .name("value")
+                                .getter("getFieldValue")
+                                .setter("setValue")
+                                .build();
+
+                textField.setText(String.valueOf(sudokuBoard.get(i,j)));
+                Bindings.bindBidirectional(textField.textProperty(), integerProperty, new NumberStringConverter());
+                sudokuBoardGrid.add(textField, j, i);
             }
-        }
-    }
-
-    @FXML
-    public void onActionButtonCheck(ActionEvent actionEvent) {
-        // check if everything is filled
-        for (Node node: sudokuBoardGrid.getChildren()) {
-            if (node instanceof TextField && !node.isDisabled()) {
-                if (((TextField) node).getText().isEmpty()) {
-                    messageBox.messageBox("", "Fill all fields", Alert.AlertType.ERROR);
-                    return;
-                }
-                int x = GridPane.getColumnIndex(node);
-                int y = GridPane.getRowIndex(node);
-
-
-                sudokuBoard.set(x, y, Integer.parseInt(((TextField) node).getText()));
-            }
-        }
-
-        if (sudokuBoard.equals(sudokuBoardCopy)) {
-            messageBox.messageBox("", "You WON", Alert.AlertType.INFORMATION);
-        } else {
-            messageBox.messageBox("", "You LOST", Alert.AlertType.INFORMATION);
         }
     }
 

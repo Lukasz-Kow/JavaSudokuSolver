@@ -16,7 +16,6 @@ public class MainManuController {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
     SudokuBoard sudokuBoard = new SudokuBoard(solver);
-    private final MessageBox messageBox = new MessageBox();
 
     private static Level level;
 
