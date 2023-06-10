@@ -7,15 +7,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class FxmlSetup {
+public class FxmlConst {
     private static Stage stage;
 
     private static void setStage(Stage stage) {
-        FxmlSetup.stage = stage;
+        FxmlConst.stage = stage;
     }
 
     private static Parent loadFxml(String fxml) throws IOException {
-        return new FXMLLoader(FxmlSetup.class.getResource(fxml)).load();
+        return new FXMLLoader(FxmlConst.class.getResource(fxml)).load();
     }
 
     public static void buildStage(String filePath) throws IOException {

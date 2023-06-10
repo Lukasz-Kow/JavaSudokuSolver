@@ -9,7 +9,7 @@ import java.io.IOException;
 public class SudokuGameApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FxmlSetup.buildStage(stage, "hello-view.fxml", "Sudoku Game");
+        FxmlConst.buildStage(stage, "main-manu.fxml", "Sudoku Game");
     }
 
     public static void main(String[] args) {

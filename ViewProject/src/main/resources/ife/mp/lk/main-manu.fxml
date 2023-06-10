@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ife.mp.lk.MainManuController">
+
+   <Label fx:id="welcomeText" />
+   <VBox alignment="CENTER" spacing="10.0">
+     <Label text="Select difficulty level:">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+     <Button onAction="#difficultyLevelClick" text="Easy">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+     <Button onAction="#difficultyLevelClick" text="Medium">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+     <Button onAction="#difficultyLevelClick" text="Hard">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+    </VBox>
+</VBox>

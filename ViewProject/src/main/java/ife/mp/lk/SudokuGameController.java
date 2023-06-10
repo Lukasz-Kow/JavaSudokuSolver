@@ -1,6 +1,7 @@
 package ife.mp.lk;
 
 import ife.mp.lk.Level;
+import ife.mp.lk.SudokuBoard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SudokuGameController {
-
-    @FXML
-    private Label difficultyLevel;
     @FXML
     private static Level level;
 
@@ -52,7 +50,7 @@ public class SudokuGameController {
     @FXML
     private void switchToMainMenu(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("hello-view.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-manu.fxml")));
             Scene scene = new Scene(root);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
