@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ife.mp.lk.SudokuGameController">
+
+   <Label fx:id="welcomeText" />
+   <VBox alignment="CENTER" spacing="10.0">
+     <Label text="Select difficulty level:" />
+     <Button onAction="#chooseDifficultyLevel" text="Easy" />
+     <Button onAction="#chooseDifficultyLevel" text="Medium" />
+     <Button onAction="#chooseDifficultyLevel" text="Hard" />
+    </VBox>
+</VBox>
