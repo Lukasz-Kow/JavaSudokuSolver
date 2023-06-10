@@ -48,7 +48,7 @@ public class SudokuGameController {
     @FXML
     public void initialize() throws CloneNotSupportedException {
         sudokuBoard.solve();
-        sudokuBoardCopy = sudokuBoard.clone();
+        sudokuBoardCopy = (SudokuBoard) sudokuBoard.clone();
         sudokuBoard.removeFieldsByDifficultyLevel(MainManuController.getLevel());
         fillGrid();
     }
