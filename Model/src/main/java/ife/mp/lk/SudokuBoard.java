@@ -132,11 +132,11 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     public void removeFieldsByDifficultyLevel(Level level) {
         if (level == Level.EASY) {
-            removeFields(40);
+            removeFields(level.value);
         } else if (level == Level.MEDIUM) {
-            removeFields(50);
+            removeFields(level.value);
         } else if (level == Level.HARD) {
-            removeFields(60);
+            removeFields(level.value);
         }
     }
 

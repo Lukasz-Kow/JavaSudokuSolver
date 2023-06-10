@@ -18,6 +18,12 @@ public class MainManuController {
     SudokuBoard sudokuBoard = new SudokuBoard(solver);
     private final MessageBox messageBox = new MessageBox();
 
+    private static Level level;
+
+    public static Level getLevel() {
+        return level;
+    }
+
     @FXML
     private Label difficultyLevel;
     @FXML
@@ -30,16 +36,14 @@ public class MainManuController {
 
         // Perform action based on the pressed button
         if (buttonText.equals("Easy")) {
-            welcomeText.setText("ez");
             switchToGameView(event);
         } else if (buttonText.equals("Medium")) {
-            welcomeText.setText("med");
             switchToGameView(event);
         } else if (buttonText.equals("Hard")) {
-            welcomeText.setText("hard");
             switchToGameView(event);
         }
     }
+
 
     @FXML
     public void switchToGameView(ActionEvent event) {
@@ -49,14 +53,14 @@ public class MainManuController {
 
             String fxmlPath = "";
             if (buttonText.equals("Easy")) {
+                level = Level.EASY;
                 fxmlPath = "board_view.fxml";
-                //sudokuBoard.removeFieldsByDifficultyLevel(Level.EASY);
             } else if (buttonText.equals("Medium")) {
+                level = Level.MEDIUM;
                 fxmlPath = "board_view.fxml";
-                //sudokuBoard.removeFieldsByDifficultyLevel(Level.MEDIUM);
             } else if (buttonText.equals("Hard")) {
+                level = Level.HARD;
                 fxmlPath = "board_view.fxml";
-                //sudokuBoard.removeFieldsByDifficultyLevel(Level.HARD);
             }
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
@@ -65,8 +69,6 @@ public class MainManuController {
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-
-            difficultyLevel.setText(buttonText);
 
         } catch (IOException e) {
             e.printStackTrace();
