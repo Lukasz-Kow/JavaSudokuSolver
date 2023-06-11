@@ -7,8 +7,8 @@ public class AuthorsSet_en extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-                {"author_1"}, {"Mateusz Pryl"},
-                {"author_2"}, {"Łukasz Kowalczyk"},
+                {"author_1", "Matthew Pryl "},
+                {"author_2", "Lukas Kowalczyk"},
         };
     }
 

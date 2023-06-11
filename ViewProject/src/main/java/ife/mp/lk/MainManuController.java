@@ -3,19 +3,33 @@ package ife.mp.lk;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ListResourceBundle;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class MainManuController {
+
+public class MainManuController implements Initializable {
 
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
     SudokuBoard sudokuBoard = new SudokuBoard(solver);
+
+    @FXML
+    private ComboBox<String> language;
+    private ResourceBundle chosenBundle;
+
+    @FXML
+    private Label author = new Label();
 
     private static Level level;
 
@@ -75,5 +89,33 @@ public class MainManuController {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        chosenBundle = resourceBundle;
+
+        language.getItems().addAll(chosenBundle.getString("English"), chosenBundle.getString("Polish"));
+
+        ListResourceBundle authorBundle = (ListResourceBundle) ResourceBundle.getBundle("ife.mp.lk.AuthorsSet");
+        author.setText(authorBundle.toString());
+    }
+
+    @FXML void getChosenLanguage() {
+        Locale locale = new Locale("en");
+        String choice = language.getValue();
+
+        switch (choice) {
+            case "English", "Angielski" -> locale = new Locale("en");
+            case "Polish", "Polski" -> locale = new Locale("pl");
+            default -> { }
+        }
+        Locale.setDefault(locale);
+        chosenBundle = ResourceBundle.getBundle("ife.mp.lk.language");
+
+        ListResourceBundle authorBundle = (ListResourceBundle) ResourceBundle
+                .getBundle("ife.mp.lk.AuthorsSet", locale);
+
+        FxmlConst.showStage("main-manu.fxml", chosenBundle);
+        author.setText(authorBundle.toString());
+    }
 
 }

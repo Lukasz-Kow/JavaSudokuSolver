@@ -6,11 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class FxmlConst {
     private static Stage stage;
 
-    private static void setStage(Stage stage) {
+    public static void setStage(Stage stage) {
         FxmlConst.stage = stage;
     }
 
@@ -18,8 +19,14 @@ public class FxmlConst {
         return new FXMLLoader(FxmlConst.class.getResource(fxml)).load();
     }
 
-    public static void buildStage(String filePath) throws IOException {
-        stage.setScene(new Scene(loadFxml(filePath)));
+    public static void showStage(String filePath, ResourceBundle resourceBundle) {
+        try {
+            stage.setScene(new Scene(
+                    new FXMLLoader(FxmlConst.class.getResource(filePath), resourceBundle).load()
+            ));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         stage.sizeToScene();
         stage.show();
     }
