@@ -37,7 +37,7 @@
 
     </GridPane>
 
-     <Button layoutX="260.0" layoutY="578.0" onAction="#switchToMainMenu" text="Back" />
+     <Button layoutX="260.0" layoutY="578.0" onAction="#switchToMainMenu" text="%Back" />
 
 
 </Pane>

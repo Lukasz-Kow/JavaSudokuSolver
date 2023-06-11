@@ -24,6 +24,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 public class SudokuGameController {
@@ -33,14 +34,7 @@ public class SudokuGameController {
 
     @FXML
     private void switchToMainMenu(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-manu.fxml")));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FxmlConst.showStage("main-manu.fxml", ResourceBundle.getBundle("ife.mp.lk.language"));
     }
 
 
@@ -52,9 +46,7 @@ public class SudokuGameController {
 
     @FXML
     public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
-        System.out.println(MainManuController.getLevel());
         sudokuBoard.removeFieldsByDifficultyLevel(MainManuController.getLevel());
-        sudokuBoard.printBoard();
         fillGrid();
     }
 

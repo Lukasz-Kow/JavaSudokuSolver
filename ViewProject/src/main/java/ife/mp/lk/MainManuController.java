@@ -13,10 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ListResourceBundle;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class MainManuController implements Initializable {
@@ -47,45 +44,60 @@ public class MainManuController implements Initializable {
         Button button = (Button) event.getSource();
         String buttonText = button.getText();
 
+        ResourceBundle targetBundle = SudokuGameApp.getResourceBundle();
+
+        String key = getBundleKey(targetBundle, buttonText);
+
+        System.out.println("Key: " + key);
+
         // Perform action based on the pressed button
-        if (buttonText.equals("Easy")) {
-            switchToGameView(event);
-        } else if (buttonText.equals("Medium")) {
-            switchToGameView(event);
-        } else if (buttonText.equals("Hard")) {
+        if (key != null) {
+            switch (key) {
+                case "Easy" -> {
+                    level = Level.EASY;
+                    switchToGameView(event);
+                }
+                case "Medium" -> {
+                    level = Level.MEDIUM;
+                    switchToGameView(event);
+                }
+                case "Hard" -> {
+                    level = Level.HARD;
+                    switchToGameView(event);
+                }
+            }
+        } else {
+            // If an error occurs set default difficulty level Easy
+            level = Level.EASY;
             switchToGameView(event);
         }
     }
 
+    private static String getBundleKey(ResourceBundle bundle, String translatedText) {
+        Enumeration<String> keys = bundle.getKeys();
+
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            String value = bundle.getString(key);
+
+            if (value.equals(translatedText)) {
+                return key;
+            }
+        }
+
+        return null;
+    }
 
     @FXML
     public void switchToGameView(ActionEvent event) {
-        try {
+
             Button button = (Button) event.getSource();
             String buttonText = button.getText();
 
-            String fxmlPath = "";
-            if (buttonText.equals("Easy")) {
-                level = Level.EASY;
-                fxmlPath = "board_view.fxml";
-            } else if (buttonText.equals("Medium")) {
-                level = Level.MEDIUM;
-                fxmlPath = "board_view.fxml";
-            } else if (buttonText.equals("Hard")) {
-                level = Level.HARD;
-                fxmlPath = "board_view.fxml";
-            }
+            String fxmlPath = "board_view.fxml";
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
-            Scene scene = new Scene(root);
+            FxmlConst.showStage(fxmlPath, chosenBundle);
 
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -95,17 +107,18 @@ public class MainManuController implements Initializable {
 
         language.getItems().addAll(chosenBundle.getString("English"), chosenBundle.getString("Polish"));
 
-        ListResourceBundle authorBundle = (ListResourceBundle) ResourceBundle.getBundle("ife.mp.lk.AuthorsSet");
+        ListResourceBundle authorBundle = (ListResourceBundle) ResourceBundle.getBundle("ife.mp.lk.AuthorsSet",
+                Locale.getDefault());
         author.setText(authorBundle.toString());
     }
 
     @FXML void getChosenLanguage() {
-        Locale locale = new Locale("en");
+        Locale locale = null;
         String choice = language.getValue();
 
         switch (choice) {
-            case "English", "Angielski" -> locale = new Locale("en");
-            case "Polish", "Polski" -> locale = new Locale("pl");
+            case "English", "Angielski" -> locale = Locale.ENGLISH;
+            case "Polish", "Polski" -> locale = Locale.of("pl", "PL");
             default -> { }
         }
         Locale.setDefault(locale);
