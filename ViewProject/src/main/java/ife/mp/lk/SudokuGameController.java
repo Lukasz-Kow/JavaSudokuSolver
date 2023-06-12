@@ -18,10 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -43,6 +45,8 @@ public class SudokuGameController {
 
     private SudokuBoardsCache sudokuBoardsCache = new SudokuBoardsCache();
     private final SudokuBoard sudokuBoard = sudokuBoardsCache.get("Solved Sudoku Board");
+
+    private SudokuBoard sudokuBoardCopy = sudokuBoardsCache.get("Solved Sudoku Board");
 
     @FXML
     public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
@@ -90,6 +94,58 @@ public class SudokuGameController {
                 textField.setText(String.valueOf(sudokuBoard.get(i,j)));
                 Bindings.bindBidirectional(textField.textProperty(), integerProperty, new NumberStringConverter());
                 sudokuBoardGrid.add(textField, j, i);
+            }
+        }
+    }
+
+    @FXML
+    public void saveSudoku(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Sudoku");
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+            if (file != null) {
+                FileSudokuBoardDao fileSudokuBoardDao = new FileSudokuBoardDao(file.getAbsolutePath());
+                fileSudokuBoardDao.write(sudokuBoardCopy);
+            }
+            System.out.println("Sudoku saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void loadSudoku(ActionEvent actionEvent) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Sudoku");
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            File file = fileChooser.showOpenDialog(stage);
+
+            if (file != null) {
+                FileSudokuBoardDao fileDao = new FileSudokuBoardDao(file.getAbsolutePath());
+                sudokuBoardCopy = (SudokuBoard) fileDao.read();
+                updateBoard();
+            }
+            System.out.println("Sudoku loaded");
+        } catch (IOException e) {
+            System.out.println("Couldn't load file from board");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("SudokuBoard file is invalid");
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateBoard() {
+        int counter = 0;
+        for (Node node : sudokuBoardGrid.getChildren()) {
+            if (node instanceof TextField) {
+                TextField textField = (TextField) node;
+                textField.setText(String.valueOf(sudokuBoardCopy.get(counter / 9, counter % 9)));
+                counter++;
             }
         }
     }
