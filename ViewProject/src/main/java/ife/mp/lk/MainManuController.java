@@ -53,16 +53,16 @@ public class MainManuController implements Initializable {
         // Perform action based on the pressed button
         if (key != null) {
             switch (key) {
-                case "Easy" -> {
-                    level = Level.EASY;
-                    switchToGameView(event);
-                }
                 case "Medium" -> {
                     level = Level.MEDIUM;
                     switchToGameView(event);
                 }
                 case "Hard" -> {
                     level = Level.HARD;
+                    switchToGameView(event);
+                }
+                default -> {
+                    level = Level.EASY;
                     switchToGameView(event);
                 }
             }

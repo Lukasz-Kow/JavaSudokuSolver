@@ -109,7 +109,8 @@ public class SudokuGameController {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
             if (file != null) {
-                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao = new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao =
+                             new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                     fileSudokuBoardDao.write(sudokuBoardCopy);
                 }
             }
@@ -128,7 +129,8 @@ public class SudokuGameController {
             File file = fileChooser.showOpenDialog(stage);
 
             if (file != null) {
-                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao = new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao =
+                             new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                     sudokuBoardCopy = fileSudokuBoardDao.read();
                     updateBoard();
                 }

@@ -200,9 +200,9 @@ public class SudokuBoard implements Serializable, Cloneable {
         SudokuBoard clonedBoard = new SudokuBoard(solver);
 
         // ZLE
-//        for (int i = 0; i < 81; i++) {
-//            clonedBoard.fields.set(i, fields.get(i).clone());
-//        }
+        //        for (int i = 0; i < 81; i++) {
+        //            clonedBoard.fields.set(i, fields.get(i).clone());
+        //        }
 
         // DOBRZE
         for (int i = 0; i < 9; i++) {

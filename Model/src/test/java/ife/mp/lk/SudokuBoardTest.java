@@ -245,14 +245,9 @@ class SudokuBoardTest {
     }
 
     @Test
-    public void sudokuBoardCloneDoesNotTransferReferenceTest() {
+    public void sudokuBoardCloneDoesNotTransferReferenceTest() throws CloneNotSupportedException {
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-        SudokuBoard sudokuBoardClone = null;
-        try {
-            sudokuBoardClone = sudokuBoard.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        SudokuBoard sudokuBoardClone = sudokuBoard.clone();
 
         sudokuBoardClone.set(0, 0, 1);
         sudokuBoardClone.set(0, 1, 1);
@@ -260,8 +255,7 @@ class SudokuBoardTest {
         sudokuBoard.printBoard();
         sudokuBoardClone.printBoard();
 
-        assertNotEquals(sudokuBoard.get(0, 0), sudokuBoardClone.get(0, 0));
-        assertNotEquals(sudokuBoard.get(0, 1), sudokuBoardClone.get(0, 1));
+        assertNotEquals(sudokuBoard, sudokuBoardClone);
 
     }
 
