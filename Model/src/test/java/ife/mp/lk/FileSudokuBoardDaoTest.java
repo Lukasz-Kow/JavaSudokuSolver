@@ -25,14 +25,14 @@ public class FileSudokuBoardDaoTest {
     @Test
     void readAndWriteTest() throws Exception {
 
-        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+        try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                 factory.getFileDao("test.txt")) {
             dao.write(sudokuBoard);
         }
 
-        SudokuBoard previous;
+        ISudokuBoard previous;
 
-        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+        try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                 factory.getFileDao("test.txt")) {
             previous = dao.read();
         }
@@ -45,7 +45,7 @@ public class FileSudokuBoardDaoTest {
     void fisReadTestExec() {
 
         Exception e = assertThrows(RuntimeException.class, () -> {
-            try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                     factory.getFileDao("test.txt")) {
                 dao.read();
                 dao.read();
@@ -60,7 +60,7 @@ public class FileSudokuBoardDaoTest {
     void fisWriteTestExec() {
 
         Exception e = assertThrows(RuntimeException.class, () -> {
-            try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                     factory.getFileDao("test.txt")) {
                 dao.write(sudokuBoard);
                 dao.write(sudokuBoard);
@@ -73,9 +73,9 @@ public class FileSudokuBoardDaoTest {
     @Test
     void readFailTest() {
         Exception e = assertThrows(RuntimeException.class, () -> {
-            try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                     factory.getFileDao("/this/is/impossible/nonexistent.txt")) {
-                SudokuBoard testBoard = dao.read();
+                ISudokuBoard testBoard = dao.read();
             }
         });
 
@@ -87,7 +87,7 @@ public class FileSudokuBoardDaoTest {
     void writeFailTest() {
 
         Exception e = assertThrows(RuntimeException.class, () -> {
-            try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                     factory.getFileDao("/this/is/impossible/nonexistent.txt")) {
                 dao.write(sudokuBoard);
             }
@@ -115,7 +115,7 @@ public class FileSudokuBoardDaoTest {
 
     @Test
     void finaliseTest() {
-        try (FileSudokuBoardDao<SudokuBoard> dao = (FileSudokuBoardDao<SudokuBoard>)
+        try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                 factory.getFileDao("test.txt")) {
             dao.read();
             dao.finalise();

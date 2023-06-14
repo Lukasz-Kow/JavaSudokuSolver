@@ -5,11 +5,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class SudokuBoard implements Serializable, Cloneable {
+public class SudokuBoard implements ISudokuBoard {
 
 
     private final List<SudokuRow> rows;

@@ -47,23 +47,29 @@ public class SudokuGameController {
     private GridPane sudokuBoardGrid;
 
     private SudokuBoardsCache sudokuBoardsCache = new SudokuBoardsCache();
-    private final SudokuBoard sudokuBoard = sudokuBoardsCache.get("Solved Sudoku Board");
 
-    private SudokuBoard sudokuBoardCopy = sudokuBoard.clone();
+    private SudokuBoard sudokuBoard = sudokuBoardsCache.get("Solved Sudoku Board");
+
+    private SudokuBoardWithProgress sudokuBoardDecorated;
+
 
     @FXML
     public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
         sudokuBoard.removeFieldsByDifficultyLevel(MainManuController.getLevel());
+        sudokuBoardDecorated = new SudokuBoardWithProgress(sudokuBoard);
         fillGrid();
     }
 
     private void fillGrid() throws NoSuchMethodException {
+        sudokuBoardDecorated.printBoard();
+        System.out.println(sudokuBoardDecorated.fieldsAccess);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField textField = new TextField();
                 textField.setMinSize(50, 50);
                 textField.setFont(Font.font(18));
-                if (sudokuBoard.get(i, j) != 0) {
+
+                if (sudokuBoardDecorated.getAccess(i, j)) {
                     textField.setDisable(true);
                 }
 
@@ -88,13 +94,13 @@ public class SudokuGameController {
                 JavaBeanIntegerProperty integerProperty =
                         JavaBeanIntegerPropertyBuilder
                                 .create()
-                                .bean(sudokuBoard.getField(i, j))
+                                .bean(sudokuBoardDecorated.getField(i, j))
                                 .name("value")
                                 .getter("getFieldValue")
                                 .setter("setValue")
                                 .build();
 
-                textField.setText(String.valueOf(sudokuBoard.get(i,j)));
+                textField.setText(String.valueOf(sudokuBoardDecorated.get(i,j)));
                 Bindings.bindBidirectional(textField.textProperty(), integerProperty, new NumberStringConverter());
                 sudokuBoardGrid.add(textField, j, i);
             }
@@ -109,9 +115,10 @@ public class SudokuGameController {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
             if (file != null) {
-                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao =
+                sudokuBoardDecorated.printBoard();
+                try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
                              new FileSudokuBoardDao<>(file.getAbsolutePath())) {
-                    fileSudokuBoardDao.write(sudokuBoardCopy);
+                    fileSudokuBoardDao.write(sudokuBoardDecorated);
                 }
             }
             System.out.println("Sudoku saved");
@@ -129,9 +136,10 @@ public class SudokuGameController {
             File file = fileChooser.showOpenDialog(stage);
 
             if (file != null) {
-                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao =
+                try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
                              new FileSudokuBoardDao<>(file.getAbsolutePath())) {
-                    sudokuBoardCopy = fileSudokuBoardDao.read();
+                    sudokuBoardDecorated = fileSudokuBoardDao.read();
+                    sudokuBoardDecorated.printBoard();
                     updateBoard();
                 }
             }
@@ -151,7 +159,15 @@ public class SudokuGameController {
         for (Node node : sudokuBoardGrid.getChildren()) {
             if (node instanceof TextField) {
                 TextField textField = (TextField) node;
-                textField.setText(String.valueOf(sudokuBoardCopy.get(counter / 9, counter % 9)));
+                textField.setText(String.valueOf(sudokuBoardDecorated.get(counter / 9, counter % 9)));
+                if (sudokuBoardDecorated.get(counter / 9, counter % 9) == 0) {
+                    textField.setText("");
+                }
+                if (sudokuBoardDecorated.getAccess(counter / 9, counter % 9)) {
+                    textField.setDisable(true);
+                } else {
+                    textField.setDisable(false);
+                }
                 counter++;
             }
         }
