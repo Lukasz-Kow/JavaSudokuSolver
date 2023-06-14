@@ -6,62 +6,56 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class SudokuBoard implements Serializable, Cloneable {
 
 
-    private List<SudokuRow> rows = Arrays.asList(new SudokuRow[9]);
-    private List<SudokuColumn> columns = Arrays.asList(new SudokuColumn[9]);
-    private List<SudokuBox> boxes = Arrays.asList(new SudokuBox[9]);
+    private final List<SudokuRow> rows;
+    private final List<SudokuColumn> columns;
+    private final List<SudokuBox> boxes;
 
-    private List<SudokuField> fields = Arrays.asList(new SudokuField[81]);
+    private final List<SudokuField> fields;
 
-    private SudokuSolver solver;
+    private final SudokuSolver solver;
 
     public SudokuBoard(SudokuSolver solver) {
+
+        this.fields = Arrays.asList(new SudokuField[81]);
+        this.rows = new ArrayList<>();
+        this.columns = new ArrayList<>();
+        this.boxes = new ArrayList<>();
+
+
         this.solver = solver;
-        int offset = 0;
+
+        for (int i = 0; i < 81; i++) {
+            fields.set(i, new SudokuField(0));
+        }
+
         for (int i = 0; i < 9; i++) {
-            List<SudokuField> columnFields = new ArrayList<>();
+            List<SudokuField> rowFields = Arrays.asList(new SudokuField[9]);
             for (int j = 0; j < 9; j++) {
-                fields.set(j + offset, new SudokuField(0));
-                columnFields.add(fields.get(j + offset));
+                rowFields.set(j, fields.get(i * 9 + j));
             }
-            offset += 9;
-            columns.set(i, new SudokuColumn(columnFields));
+            rows.add(new SudokuRow(rowFields));
         }
-
-        offset = 0;
 
         for (int i = 0; i < 9; i++) {
-            List<SudokuField> temp = new ArrayList<>();
-            for (int j = 0; j < 81; j += 9) {
-                temp.add(fields.get(j + offset));
+            List<SudokuField> columnFields = Arrays.asList(new SudokuField[9]);
+            for (int j = 0; j < 9; j++) {
+                columnFields.set(j, fields.get(j * 9 + i));
             }
-            offset += 1;
-            rows.set(i, new SudokuRow(temp));
+            columns.add(new SudokuColumn(columnFields));
         }
 
-        Integer offsetA = 0;
-        Integer offsetB = 0;
-        Integer offsetC = 0;
-
-
-        for (int z = 0; z < 3; z++) {
-            for (int k = 0; k < 3; k++) {
-                List<SudokuField> tempFieldsList = Arrays.asList(new SudokuField[9]);
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        tempFieldsList.set(i + j * 3, fields.get(j + offsetA % 27  + offsetB % 9  + offsetC));
-                    }
-                    offsetA += 9;
-                }
-                offsetB += 3;
-                SudokuBox box = new SudokuBox(tempFieldsList);
-                boxes.set(z * 3 + k, box);
+        for (int i = 0; i < 9; i++) {
+            List<SudokuField> boxFields = Arrays.asList(new SudokuField[9]);
+            for (int j = 0; j < 9; j++) {
+                boxFields.set(j, fields.get((i / 3) * 27 + (i % 3) * 3 + (j / 3) * 9 + (j % 3)));
             }
-            offsetA += 27;
+            boxes.add(new SudokuBox(boxFields));
         }
     }
 
@@ -113,20 +107,25 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public boolean checkBoard() {
-        for (int j = 0; j < 9; j++) {
-            if (!boxes.get(j).isValid()) {
-                return false;
-            }
-        }
+
         //columns
         for (int i = 0; i < 9; i++) {
             if (!rows.get(i).isValid()) {
+                System.out.println("Row " + i + " is not valid");
                 return false;
             }
         }
         //rows
         for (int i = 0; i < 9; i++) {
             if (!columns.get(i).isValid()) {
+                System.out.println("Column " + i + " is not valid");
+                return false;
+            }
+        }
+
+        for (int j = 0; j < 9; j++) {
+            if (!boxes.get(j).isValid()) {
+                System.out.println("Box " + j + " is not valid");
                 return false;
             }
         }
@@ -200,33 +199,15 @@ public class SudokuBoard implements Serializable, Cloneable {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard clonedBoard = new SudokuBoard(solver);
 
-//        // Clone the fields
-//        for (SudokuField field : fields) {
-//            clonedBoard.fields[field]
+        // ZLE
+//        for (int i = 0; i < 81; i++) {
+//            clonedBoard.fields.set(i, fields.get(i).clone());
 //        }
 
-        for (int i = 0; i < fields.size(); i++) {
-            clonedBoard.fields.set(i, fields.get(i).clone());
-        }
-
-        // Clone the rows
-        for (SudokuRow row : rows) {
-            for (int i = 0; i < row.elements.size(); i++) {
-                clonedBoard.rows.get(i).getElements().set(i, row.getElements().get(i).clone());
-            }
-        }
-
-        // Clone the columns
-        for (SudokuColumn column : columns) {
-            for (int i = 0; i < column.elements.size(); i++) {
-                clonedBoard.columns.get(i).getElements().set(i, column.getElements().get(i).clone());
-            }
-        }
-
-        // Clone the boxes
-        for (SudokuBox box : boxes) {
-            for (int i = 0; i < box.elements.size(); i++) {
-                clonedBoard.boxes.get(i).getElements().set(i, box.getElements().get(i).clone());
+        // DOBRZE
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                clonedBoard.set(i, j, get(i, j));
             }
         }
 

@@ -47,11 +47,8 @@ public class SudokuRow extends SudokuElement implements Cloneable {
 
     @Override
     public SudokuRow clone() {
-        List<SudokuField> clonedFields = new ArrayList<SudokuField>(elements.size());
-        for (SudokuField field : elements) {
-            clonedFields.add(field.clone());
-        }
-        return new SudokuRow(clonedFields);
+
+        return new SudokuRow(getElements());
     }
 
 }

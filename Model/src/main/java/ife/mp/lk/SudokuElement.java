@@ -2,9 +2,13 @@ package ife.mp.lk;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-class SudokuElement implements Serializable {
+import static java.lang.reflect.Array.get;
+
+public abstract class SudokuElement implements Serializable, Cloneable {
 
     public List<SudokuField> elements;
 
@@ -12,11 +16,15 @@ class SudokuElement implements Serializable {
         if (elements.size() != 9) {
             throw new IllegalArgumentException("Entity must contain 9 fields");
         }
-        this.elements = elements;
+        this.elements = new ArrayList<>(elements);
     }
 
     public List<SudokuField> getElements() {
-        return elements;
+        List<SudokuField> sudokuFields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            sudokuFields.set(i, new SudokuField(elements.get(i).getFieldValue()));
+        }
+        return sudokuFields;
     }
 
     boolean isValid() {
@@ -36,4 +44,7 @@ class SudokuElement implements Serializable {
             System.out.print(elements.get(i).getFieldValue() + " ");
         }
     }
+
+    @Override
+    public abstract SudokuElement clone();
 }

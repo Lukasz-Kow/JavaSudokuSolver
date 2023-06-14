@@ -163,6 +163,9 @@ class SudokuBoardTest {
     @Test
     void checkBoardTest(){
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+        sudokuBoard.printBoard();
+        SudokuBox sudokuBox = sudokuBoard.getBox(0);
+        System.out.println(sudokuBox);
         assertTrue(sudokuBoard.checkBoard());
     }
 
@@ -259,7 +262,7 @@ class SudokuBoardTest {
 
         assertNotEquals(sudokuBoard.get(0, 0), sudokuBoardClone.get(0, 0));
         assertNotEquals(sudokuBoard.get(0, 1), sudokuBoardClone.get(0, 1));
-        
+
     }
 
 
