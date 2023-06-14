@@ -15,6 +15,10 @@ class SudokuElement implements Serializable {
         this.elements = elements;
     }
 
+    public List<SudokuField> getElements() {
+        return elements;
+    }
+
     boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {

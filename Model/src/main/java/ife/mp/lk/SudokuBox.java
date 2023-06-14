@@ -54,15 +54,11 @@ public class SudokuBox extends SudokuElement implements Cloneable  {
 
     @Override
     public SudokuBox clone() {
-        try {
-            SudokuBox cloned = (SudokuBox) super.clone();
-            cloned.elements = new ArrayList<>(elements.size());
-            for (SudokuField field : elements) {
-                cloned.elements.add(field.clone());
-            }
-            return cloned;
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+        List<SudokuField> clonedFields = new ArrayList<>(elements.size());
+        for (SudokuField field : elements) {
+            clonedFields.add(field.clone());
         }
+        return new SudokuBox(clonedFields);
+
     }
 }

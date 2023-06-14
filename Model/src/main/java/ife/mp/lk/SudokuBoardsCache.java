@@ -30,6 +30,7 @@ public class SudokuBoardsCache {
         try {
             return cache.get(key).clone();
         } catch (Exception e) {
+            System.out.println("Error: " + e);
             return null;
         }
     }

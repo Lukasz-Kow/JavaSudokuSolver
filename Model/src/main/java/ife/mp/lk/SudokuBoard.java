@@ -196,7 +196,42 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     @Override
     public SudokuBoard clone() throws CloneNotSupportedException {
-        return (SudokuBoard) super.clone();
+
+        BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard clonedBoard = new SudokuBoard(solver);
+
+//        // Clone the fields
+//        for (SudokuField field : fields) {
+//            clonedBoard.fields[field]
+//        }
+
+        for (int i = 0; i < fields.size(); i++) {
+            clonedBoard.fields.set(i, fields.get(i).clone());
+        }
+
+        // Clone the rows
+        for (SudokuRow row : rows) {
+            for (int i = 0; i < row.elements.size(); i++) {
+                clonedBoard.rows.get(i).getElements().set(i, row.getElements().get(i).clone());
+            }
+        }
+
+        // Clone the columns
+        for (SudokuColumn column : columns) {
+            for (int i = 0; i < column.elements.size(); i++) {
+                clonedBoard.columns.get(i).getElements().set(i, column.getElements().get(i).clone());
+            }
+        }
+
+        // Clone the boxes
+        for (SudokuBox box : boxes) {
+            for (int i = 0; i < box.elements.size(); i++) {
+                clonedBoard.boxes.get(i).getElements().set(i, box.getElements().get(i).clone());
+            }
+        }
+
+        return clonedBoard;
+
     }
 
 }

@@ -34,6 +34,9 @@ public class SudokuGameController {
     @FXML
     private Button backButton;
 
+    public SudokuGameController() throws CloneNotSupportedException {
+    }
+
     @FXML
     private void switchToMainMenu(ActionEvent event) {
         FxmlConst.showStage("main-manu.fxml", ResourceBundle.getBundle("ife.mp.lk.language"));
@@ -46,7 +49,7 @@ public class SudokuGameController {
     private SudokuBoardsCache sudokuBoardsCache = new SudokuBoardsCache();
     private final SudokuBoard sudokuBoard = sudokuBoardsCache.get("Solved Sudoku Board");
 
-    private SudokuBoard sudokuBoardCopy = sudokuBoardsCache.get("Solved Sudoku Board");
+    private SudokuBoard sudokuBoardCopy = sudokuBoard.clone();
 
     @FXML
     public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
@@ -106,8 +109,9 @@ public class SudokuGameController {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
             if (file != null) {
-                FileSudokuBoardDao fileSudokuBoardDao = new FileSudokuBoardDao(file.getAbsolutePath());
-                fileSudokuBoardDao.write(sudokuBoardCopy);
+                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao = new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                    fileSudokuBoardDao.write(sudokuBoardCopy);
+                }
             }
             System.out.println("Sudoku saved");
         } catch (IOException e) {
@@ -124,9 +128,10 @@ public class SudokuGameController {
             File file = fileChooser.showOpenDialog(stage);
 
             if (file != null) {
-                FileSudokuBoardDao fileDao = new FileSudokuBoardDao(file.getAbsolutePath());
-                sudokuBoardCopy = (SudokuBoard) fileDao.read();
-                updateBoard();
+                try (FileSudokuBoardDao<SudokuBoard> fileSudokuBoardDao = new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                    sudokuBoardCopy = fileSudokuBoardDao.read();
+                    updateBoard();
+                }
             }
             System.out.println("Sudoku loaded");
         } catch (IOException e) {
