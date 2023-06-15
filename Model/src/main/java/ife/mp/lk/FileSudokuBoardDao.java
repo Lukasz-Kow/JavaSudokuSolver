@@ -31,7 +31,6 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             fis.close();
             return board;
         } catch (IOException e) {
-            System.out.println("IOException is caught: " + e);
             throw new RuntimeException("Error reading file");
         }
     }
@@ -49,14 +48,10 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             oos.close();
             fos.close();
         } catch (IOException e) {
-            System.out.println("IOException is caught (write) " + e);
             throw new RuntimeException("Error writing file");
         }
     }
 
-    public void finalise() {
-        System.out.println("Finalize");
-    }
 
     @Override
     public void close() {

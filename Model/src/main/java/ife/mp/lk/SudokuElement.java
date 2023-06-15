@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.reflect.Array.get;
-
 public abstract class SudokuElement implements Serializable, Cloneable {
 
     public List<SudokuField> elements;
@@ -41,7 +39,6 @@ public abstract class SudokuElement implements Serializable, Cloneable {
 
     void print() {
         for (int i = 0; i < 9; i++) {
-            System.out.print(elements.get(i).getFieldValue() + " ");
         }
     }
 

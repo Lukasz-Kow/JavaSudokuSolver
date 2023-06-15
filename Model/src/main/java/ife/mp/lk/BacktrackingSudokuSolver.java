@@ -1,16 +1,19 @@
 package ife.mp.lk;
 
+
+
 import java.io.Serializable;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
+
     public void solve(SudokuBoard board) {
         if (!solve(board, 0, 0)) {
-            System.out.println("No solution");
         }
     }
 

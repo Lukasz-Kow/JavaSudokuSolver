@@ -1,31 +1,22 @@
 package ife.mp.lk;
 
-import ife.mp.lk.Level;
-import ife.mp.lk.SudokuBoard;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -52,6 +43,9 @@ public class SudokuGameController {
 
     private SudokuBoardWithProgress sudokuBoardDecorated;
 
+    private static ResourceBundle resourceBundle;
+
+
 
     @FXML
     public void initialize() throws CloneNotSupportedException, NoSuchMethodException {
@@ -62,7 +56,6 @@ public class SudokuGameController {
 
     private void fillGrid() throws NoSuchMethodException {
         sudokuBoardDecorated.printBoard();
-        System.out.println(sudokuBoardDecorated.fieldsAccess);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField textField = new TextField();
@@ -109,6 +102,7 @@ public class SudokuGameController {
 
     @FXML
     public void saveSudoku(ActionEvent actionEvent) {
+        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Sudoku");
@@ -121,7 +115,7 @@ public class SudokuGameController {
                     fileSudokuBoardDao.write(sudokuBoardDecorated);
                 }
             }
-            System.out.println("Sudoku saved");
+            resourceBundle.getString("SudokuSaved");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,6 +123,7 @@ public class SudokuGameController {
 
     @FXML
     public void loadSudoku(ActionEvent actionEvent) {
+        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Sudoku");
@@ -143,12 +138,12 @@ public class SudokuGameController {
                     updateBoard();
                 }
             }
-            System.out.println("Sudoku loaded");
+            resourceBundle.getString("SudokuLoaded");
         } catch (IOException e) {
-            System.out.println("Couldn't load file from board");
+            resourceBundle.getString("CouldNotLoadSudoku");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("SudokuBoard file is invalid");
+            resourceBundle.getString("BoardInvalid");
             e.printStackTrace();
         }
 

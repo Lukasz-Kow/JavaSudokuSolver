@@ -66,17 +66,13 @@ public class SudokuBoard implements ISudokuBoard {
     public void printBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(fields.get(i + j * 9).getFieldValue() + " ");
                 if (j == 2 || j == 5) {
                     System.out.print("| ");
                 }
             }
-            System.out.println();
             if (i == 2 || i == 5) {
-                System.out.println("---------------------");
             }
         }
-        System.out.println();
     }
 
 
@@ -109,21 +105,18 @@ public class SudokuBoard implements ISudokuBoard {
         //columns
         for (int i = 0; i < 9; i++) {
             if (!rows.get(i).isValid()) {
-                System.out.println("Row " + i + " is not valid");
                 return false;
             }
         }
         //rows
         for (int i = 0; i < 9; i++) {
             if (!columns.get(i).isValid()) {
-                System.out.println("Column " + i + " is not valid");
                 return false;
             }
         }
 
         for (int j = 0; j < 9; j++) {
             if (!boxes.get(j).isValid()) {
-                System.out.println("Box " + j + " is not valid");
                 return false;
             }
         }
@@ -196,11 +189,6 @@ public class SudokuBoard implements ISudokuBoard {
 
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard clonedBoard = new SudokuBoard(solver);
-
-        // ZLE
-        //        for (int i = 0; i < 81; i++) {
-        //            clonedBoard.fields.set(i, fields.get(i).clone());
-        //        }
 
         // DOBRZE
         for (int i = 0; i < 9; i++) {
