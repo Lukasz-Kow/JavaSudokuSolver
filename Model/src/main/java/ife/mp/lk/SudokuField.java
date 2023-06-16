@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,6 +27,8 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
     }
 
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+    private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
+
 
 
     @Override
@@ -64,6 +68,7 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
     @Override
     public int compareTo(SudokuField o) {
         if (o == null) {
+            logger.error("Error: ", new ComparisonExce(resourceBundle.getString("NullError")));
             throw new ComparisonExce(resourceBundle.getString("NullError"));
         }
         return Integer.compare(this.value, o.getFieldValue());

@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,8 +45,9 @@ public class SudokuGameController {
 
     private SudokuBoardWithProgress sudokuBoardDecorated;
 
-    private static ResourceBundle resourceBundle;
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("language");
 
+    private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
 
 
     @FXML
@@ -102,7 +105,6 @@ public class SudokuGameController {
 
     @FXML
     public void saveSudoku(ActionEvent actionEvent) {
-        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Sudoku");
@@ -115,7 +117,7 @@ public class SudokuGameController {
                     fileSudokuBoardDao.write(sudokuBoardDecorated);
                 }
             }
-            resourceBundle.getString("SudokuSaved");
+            logger.info(resourceBundle.getString("SudokuSaved"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,7 +125,6 @@ public class SudokuGameController {
 
     @FXML
     public void loadSudoku(ActionEvent actionEvent) {
-        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Sudoku");
@@ -138,13 +139,13 @@ public class SudokuGameController {
                     updateBoard();
                 }
             }
-            resourceBundle.getString("SudokuLoaded");
+            logger.info(resourceBundle.getString("SudokuLoaded"));
         } catch (IOException e) {
-            resourceBundle.getString("CouldNotLoadSudoku");
+            logger.error("Error: ", e);
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            resourceBundle.getString("BoardInvalid");
-            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            logger.error("Error: ", ex);
+            ex.printStackTrace();
         }
 
     }
