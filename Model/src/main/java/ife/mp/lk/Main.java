@@ -1,6 +1,5 @@
 package ife.mp.lk;
 
-
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException {
 
@@ -20,7 +19,6 @@ public class Main {
             // 4. Printing the clone
             SudokuRow box = sudokuBoardClone.getRow(0);
             sudokuBoardClone.printBoard();
-            System.out.println(box);
 
 
     }

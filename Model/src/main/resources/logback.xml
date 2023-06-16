@@ -6,17 +6,15 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>target/log/SudokuBoard.log</file>
+        <file>SudokuGameLogs.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="STDOUT" />
-    </root>
-    <logger name="debugLogger" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
-    </logger>
+    </root>
+
 
 </configuration>

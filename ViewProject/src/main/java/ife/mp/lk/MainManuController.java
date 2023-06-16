@@ -2,18 +2,16 @@ package ife.mp.lk;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.ListResourceBundle;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class MainManuController implements Initializable {
@@ -34,10 +32,7 @@ public class MainManuController implements Initializable {
         return level;
     }
 
-    @FXML
-    private Label difficultyLevel;
-    @FXML
-    private Label welcomeText;
+
 
     @FXML
     protected void difficultyLevelClick(ActionEvent event) {
@@ -48,7 +43,8 @@ public class MainManuController implements Initializable {
 
         String key = getBundleKey(targetBundle, buttonText);
 
-        System.out.println("Key: " + key);
+        //System.out.println("Key: " + key);
+        chosenBundle.getString("Easy");
 
         // Perform action based on the pressed button
         if (key != null) {

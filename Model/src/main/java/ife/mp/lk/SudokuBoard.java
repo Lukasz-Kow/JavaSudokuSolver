@@ -185,7 +185,7 @@ public class SudokuBoard implements ISudokuBoard {
     }
 
     @Override
-    public SudokuBoard clone() throws CloneNotSupportedException {
+    public SudokuBoard clone() {
 
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard clonedBoard = new SudokuBoard(solver);

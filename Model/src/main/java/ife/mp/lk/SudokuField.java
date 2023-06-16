@@ -1,11 +1,13 @@
 package ife.mp.lk;
 
+import ife.mp.lk.exeptions.ComparisonExce;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 public class SudokuField implements Serializable, Cloneable, Comparable<SudokuField> {
     private int value;
@@ -21,6 +23,9 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
     public void setValue(int value) {
         this.value = value;
     }
+
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+
 
     @Override
     public boolean equals(Object obj) {
@@ -59,7 +64,7 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
     @Override
     public int compareTo(SudokuField o) {
         if (o == null) {
-            throw new NullPointerException();
+            throw new ComparisonExce(resourceBundle.getString("NullError"));
         }
         return Integer.compare(this.value, o.getFieldValue());
     }

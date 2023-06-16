@@ -1,18 +1,26 @@
 package ife.mp.lk;
 
 
+import ife.mp.lk.exeptions.IllegalArgumentExce;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
+
+
+
 
 public abstract class SudokuElement implements Serializable, Cloneable {
 
     public List<SudokuField> elements;
 
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+
     SudokuElement(List<SudokuField> elements) {
         if (elements.size() != 9) {
-            throw new IllegalArgumentException("Entity must contain 9 fields");
+            throw new IllegalArgumentExce(resourceBundle.getString("ValueBetween1and9"));
         }
         this.elements = new ArrayList<>(elements);
     }

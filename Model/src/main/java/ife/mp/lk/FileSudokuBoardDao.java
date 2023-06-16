@@ -1,6 +1,9 @@
 package ife.mp.lk;
 
+import ife.mp.lk.exeptions.Exceptions_Dao;
+
 import java.io.*;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +16,9 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
     FileOutputStream fos = null;
     ObjectOutputStream oos = null;
 
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+
+
     public FileSudokuBoardDao(String fileName) {
         this.fileName = fileName;
     }
@@ -20,7 +26,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
     @Override
     public SudokuBoardT read() throws IOException, ClassNotFoundException {
         if (fis != null || ois != null) {
-            throw new RuntimeException("reader already used");
+            throw new Exceptions_Dao(resourceBundle.getString("ReaderUsed"));
         }
         try {
             fis = new FileInputStream(fileName);
@@ -31,14 +37,14 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             fis.close();
             return board;
         } catch (IOException e) {
-            throw new RuntimeException("Error reading file");
+            throw new Exceptions_Dao(resourceBundle.getString("ErrorReading"), e);
         }
     }
 
     @Override
     public void write(SudokuBoardT obj) throws IOException {
         if (fos != null || oos != null) {
-            throw new RuntimeException("writer already used");
+            throw new Exceptions_Dao(resourceBundle.getString("WriterUsed"));
         }
         try {
             fos = new FileOutputStream(fileName);
@@ -48,7 +54,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             oos.close();
             fos.close();
         } catch (IOException e) {
-            throw new RuntimeException("Error writing file");
+            throw new Exceptions_Dao(resourceBundle.getString("ErrorWriting"), e);
         }
     }
 
@@ -61,7 +67,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
                 ois.close();
             } catch (IOException ex) {
                 Logger.getLogger(FileSudokuBoardDao.class.getName()).log(Level.SEVERE, null, ex);
-                throw new RuntimeException("Error closing file (input))");
+                throw new Exceptions_Dao(resourceBundle.getString("ErrorClosingFileInput"), ex);
             }
         }
 
@@ -71,7 +77,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
                 oos.close();
             } catch (IOException ex) {
                 Logger.getLogger(FileSudokuBoardDao.class.getName()).log(Level.SEVERE, null, ex);
-                throw new RuntimeException("Error closing file (output))");
+                throw new Exceptions_Dao(resourceBundle.getString("ErrorClosingFileOutput"), ex);
             }
         }
     }
