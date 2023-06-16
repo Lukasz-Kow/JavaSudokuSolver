@@ -45,9 +45,9 @@ public class SudokuGameController {
 
     private SudokuBoardWithProgress sudokuBoardDecorated;
 
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("language");
+    private static ResourceBundle resourceBundle;
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(SudokuGameController.class);
 
 
     @FXML
@@ -58,7 +58,7 @@ public class SudokuGameController {
     }
 
     private void fillGrid() throws NoSuchMethodException {
-        sudokuBoardDecorated.printBoard();
+        //sudokuBoardDecorated.printBoard();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField textField = new TextField();
@@ -105,13 +105,14 @@ public class SudokuGameController {
 
     @FXML
     public void saveSudoku(ActionEvent actionEvent) {
+        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Sudoku");
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             File file = fileChooser.showSaveDialog(stage);
             if (file != null) {
-                sudokuBoardDecorated.printBoard();
+                //sudokuBoardDecorated.printBoard();
                 try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
                              new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                     fileSudokuBoardDao.write(sudokuBoardDecorated);
@@ -125,6 +126,7 @@ public class SudokuGameController {
 
     @FXML
     public void loadSudoku(ActionEvent actionEvent) {
+        resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Sudoku");
@@ -135,7 +137,7 @@ public class SudokuGameController {
                 try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
                              new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                     sudokuBoardDecorated = fileSudokuBoardDao.read();
-                    sudokuBoardDecorated.printBoard();
+                    //sudokuBoardDecorated.printBoard();
                     updateBoard();
                 }
             }

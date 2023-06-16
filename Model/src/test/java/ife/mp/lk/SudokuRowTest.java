@@ -1,6 +1,8 @@
 package ife.mp.lk;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,9 +12,12 @@ class SudokuRowTest {
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
     SudokuBoardsCache cache = new SudokuBoardsCache();
+    private static final Logger logger = LoggerFactory.getLogger(SudokuRowTest.class);
+
 
     @Test
     void printRowTest(){
+        logger.atInfo().log("testing printRowTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         sudokuRow.print();
@@ -22,6 +27,7 @@ class SudokuRowTest {
 
     @Test
     void rowIsValidTest(){
+        logger.atInfo().log("testing rowIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         assertTrue(sudokuRow.isValid());
@@ -30,6 +36,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowIsNotValidTest(){
+        logger.atInfo().log("testing SudokuRowIsNotValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         sudokuBoard.set(0,0,1);
@@ -42,6 +49,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowsFieldEqual0Test(){
+        logger.atInfo().log("testing SudokuRowsFieldEqual0Test");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         sudokuBoard.set(0,0,0);
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
@@ -50,6 +58,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowTestUsingCheckBoard(){
+        logger.atInfo().log("testing SudokuRowTestUsingCheckBoard");
         SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
         sudokuBoard.set(0,0,1);
@@ -143,13 +152,13 @@ class SudokuRowTest {
         sudokuBoard.set(8,8,8);
 
 
-        sudokuBoard.printBoard();
         assertFalse(sudokuBoard.checkBoard());
 
     }
 
     @Test
     void SudokuRowEqualsTest(){
+        logger.atInfo().log("testing SudokuRowEqualsTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
@@ -158,6 +167,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowNotEqualsTest(){
+        logger.atInfo().log("testing SudokuRowNotEqualsTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(1);
@@ -166,6 +176,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowHashCodeTest(){
+        logger.atInfo().log("testing SudokuRowHashCodeTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         SudokuRow sudokuRow2 = sudokuBoard.getRow(0);
@@ -174,6 +185,7 @@ class SudokuRowTest {
 
     @Test
     void SudokuRowToStringTest(){
+        logger.atInfo().log("testing SudokuRowToStringTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         String expected = "1 2 3 4 5 6 7 8 9 ";
@@ -182,6 +194,7 @@ class SudokuRowTest {
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuRow(){
+        logger.atInfo().log("testing CheckIfObjIsAnInstanceOfSudokuRow");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
         Object obj = new Object();

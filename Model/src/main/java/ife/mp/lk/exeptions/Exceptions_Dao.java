@@ -1,6 +1,6 @@
 package ife.mp.lk.exeptions;
 
-public class Exceptions_Dao extends RuntimeException{
+public class Exceptions_Dao extends RuntimeException {
 
     public Exceptions_Dao(String message) {
         super(message);

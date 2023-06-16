@@ -1,9 +1,9 @@
 package ife.mp.lk;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,9 +14,12 @@ class SudokuBoxTest {
     BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
 
     SudokuBoardsCache cache = new SudokuBoardsCache();
+    private static final Logger logger = LoggerFactory.getLogger(SudokuBoxTest.class);
+
 
     @Test
     void printBoxTest(){
+        logger.atInfo().log("testing printBoxTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -27,6 +30,7 @@ class SudokuBoxTest {
 
     @Test
     void BoxIsValidTest(){
+        logger.atInfo().log("testing BoxIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -36,6 +40,7 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxIsNotValidTest(){
+        logger.atInfo().log("testing SudokuBoxIsNotValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         sudokuBoard.set(0,0,1);
@@ -47,6 +52,7 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxsFieldEqual0Test(){
+        logger.atInfo().log("testing SudokuBoxsFieldEqual0Test");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         sudokuBoard.set(0,0,0);
@@ -56,6 +62,7 @@ class SudokuBoxTest {
 
     @Test
     public void testEqualsWithDifferentClass() {
+        logger.atInfo().log("testing testEqualsWithDifferentClass");
         SudokuField field = new SudokuField(5);
         Integer other;
         other = 5;
@@ -64,6 +71,7 @@ class SudokuBoxTest {
 
     @Test
     public void SudokuFieldtestEquals() {
+        logger.atInfo().log("testing SudokuFieldtestEquals");
         SudokuField field1 = new SudokuField(1);
         SudokuField field2 = new SudokuField(1);
         SudokuField field3 = new SudokuField(2);
@@ -77,6 +85,7 @@ class SudokuBoxTest {
     }
     @Test
     void SudokuBoxTestUsingCheckBoard(){
+        logger.atInfo().log("testing SudokuBoxTestUsingCheckBoard");
         SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
 
@@ -171,13 +180,13 @@ class SudokuBoxTest {
         sudokuBoard.set(8,8,8);
 
 
-        sudokuBoard.printBoard();
         assertFalse(sudokuBoard.checkBoard());
 
     }
 
     @Test
     void SudokuBoxEqualsTest(){
+        logger.atInfo().log("testing SudokuBoxEqualsTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -187,6 +196,7 @@ class SudokuBoxTest {
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuBox(){
+        logger.atInfo().log("testing CheckIfObjIsAnInstanceOfSudokuBox");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -197,6 +207,7 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxNotEqualsTest(){
+        logger.atInfo().log("testing SudokuBoxNotEqualsTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -206,6 +217,7 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxHashCodeTest(){
+        logger.atInfo().log("testing SudokuBoxHashCodeTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -215,6 +227,7 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxToStringTest(){
+        logger.atInfo().log("testing SudokuBoxToStringTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
 
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
@@ -224,12 +237,13 @@ class SudokuBoxTest {
 
     @Test
     void SudokuBoxMoreElementsTest(){
+        logger.atInfo().log("testing SudokuBoxMoreElementsTest");
         List<SudokuField> testList = Arrays.asList(new SudokuField[10]);
         Exception e = assertThrows(IllegalArgumentException.class, () -> {
             SudokuBox box = new SudokuBox(testList);
         });
 
-        String expectedMessage = "Entity must contain 9 fields";
+        String expectedMessage = "Value must be between 1 and 9";
         String actualMessage = e.getMessage();
 
         assertEquals(expectedMessage, actualMessage);

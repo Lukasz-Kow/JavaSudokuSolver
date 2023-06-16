@@ -16,9 +16,6 @@ public class Main {
             sudokuBoardClone.set(0, 0, 8);
             sudokuBoardClone.set(1, 0, 8);
 
-            // 4. Printing the clone
-            SudokuRow box = sudokuBoardClone.getRow(0);
-            sudokuBoardClone.printBoard();
 
 
     }

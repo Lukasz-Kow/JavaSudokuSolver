@@ -1,6 +1,9 @@
 package ife.mp.lk;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
@@ -8,9 +11,12 @@ class SudokuBoardTest {
     SudokuTestValidatorHelper validator = new SudokuTestValidatorHelper();
 
     SudokuBoardsCache cache = new SudokuBoardsCache();
+    private static final Logger logger = LoggerFactory.getLogger(SudokuBoardTest.class);
+
 
     @Test
     void solveEmptyBoard() {
+        logger.atInfo().log("testing solveEmptyBoard");
 
         SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
@@ -22,7 +28,7 @@ class SudokuBoardTest {
 
     @Test
     void cannotSolveUnresolvableBoard() {
-
+            logger.atInfo().log("testing cannotSolveUnresolvableBoard");
             SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
             sudokuBoard.set(0, 0, 1);
@@ -122,6 +128,7 @@ class SudokuBoardTest {
 
     @Test
     void test2SubsequentBoardsAreDifferent(){
+        logger.atInfo().log("testing test2SubsequentBoardsAreDifferent");
         SudokuBoard sudokuBoard1 = cache.get("Solved Sudoku Board");
 
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
@@ -133,8 +140,9 @@ class SudokuBoardTest {
 
     @Test
     void printingBoardTest(){
+        logger.atInfo().log("testing printingBoardTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-        sudokuBoard.printBoard();
+        //sudokuBoard.printBoard();
 
         assertNotNull(sudokuBoard);
 
@@ -142,12 +150,14 @@ class SudokuBoardTest {
 
     @Test
     void EmptyMainTest() throws Exception {
+        logger.atInfo().log("testing EmptyMainTest");
         Main main = new Main();
         main.main(new String[0]);
     }
 
     @Test
     void IsValidTest(){
+        logger.atInfo().log("testing IsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertTrue(validator.isValid(sudokuBoard));
     }
@@ -155,6 +165,7 @@ class SudokuBoardTest {
 
     @Test
     void columnIsValidTest(){
+        logger.atInfo().log("testing columnIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
         assertTrue(sudokuColumn.isValid());
@@ -162,22 +173,18 @@ class SudokuBoardTest {
 
     @Test
     void checkBoardTest(){
+        logger.atInfo().log("testing checkBoardTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-        sudokuBoard.printBoard();
+        //sudokuBoard.printBoard();
         SudokuBox sudokuBox = sudokuBoard.getBox(0);
-        System.out.println(sudokuBox);
         assertTrue(sudokuBoard.checkBoard());
     }
 
     @Test
     void checkBoardTestNotValidBecauseOfRow(){
+        logger.atInfo().log("testing checkBoardTestNotValidBecauseOfRow");
         SudokuBoard sudokuBoard = cache.get("Empty Sudoku Board");
 
-
-        // Filling every box with numbers
-        // [1, 2, 3]
-        // [4, 5, 6]
-        // [7, 8, 9]
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -185,22 +192,23 @@ class SudokuBoardTest {
             }
         }
 
-       sudokuBoard.printBoard();
+        //sudokuBoard.printBoard();
 
         assertFalse(sudokuBoard.checkBoard());
     }
 
     @Test
     void checkBoardTestNotValidBecauseOfColumn(){
+        logger.atInfo().log("testing checkBoardTestNotValidBecauseOfColumn");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(0,8,1);
-//        sudokuBoard.printBoard();
         assertFalse(sudokuBoard.checkBoard());
     }
 
     @Test
     void CheckIfObjIsAnInstanceOfSudokuBoard(){
+        logger.atInfo().log("testing CheckIfObjIsAnInstanceOfSudokuBoard");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         Object obj = new Object();
         boolean result = sudokuBoard.equals(obj);
@@ -209,11 +217,13 @@ class SudokuBoardTest {
 
     @Test
     public void SudokuBoardEqualsSameObject() {
+        logger.atInfo().log("testing SudokuBoardEqualsSameObject");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertTrue(sudokuBoard.equals(sudokuBoard));
     }
     @Test
     void SudokuBoardHashCodeTest(){
+        logger.atInfo().log("testing SudokuBoardHashCodeTest");
         SudokuBoard sudokuBoard1 = cache.get("Solved Sudoku Board");
         SudokuBoard sudokuBoard2 = cache.get("Solved Sudoku Board");
         assertEquals(sudokuBoard1.hashCode(), sudokuBoard2.hashCode());
@@ -221,12 +231,14 @@ class SudokuBoardTest {
 
     @Test
     void SudokuBoardToStringTest(){
+        logger.atInfo().log("testing SudokuBoardToStringTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         assertNotNull(sudokuBoard.toString());
     }
 
     @Test
     public void testRemoveFields() {
+        logger.atInfo().log("testing testRemoveFields");
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard sudokuBoard = new SudokuBoard(solver);
         sudokuBoard.solve();
@@ -246,14 +258,13 @@ class SudokuBoardTest {
 
     @Test
     public void sudokuBoardCloneDoesNotTransferReferenceTest() throws CloneNotSupportedException {
+        logger.atInfo().log("testing sudokuBoardCloneDoesNotTransferReferenceTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
         SudokuBoard sudokuBoardClone = sudokuBoard.clone();
 
         sudokuBoardClone.set(0, 0, 1);
         sudokuBoardClone.set(0, 1, 1);
 
-        sudokuBoard.printBoard();
-        sudokuBoardClone.printBoard();
 
         assertNotEquals(sudokuBoard, sudokuBoardClone);
 

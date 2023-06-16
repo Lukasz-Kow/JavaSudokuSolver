@@ -70,8 +70,6 @@ public class SudokuBoard implements ISudokuBoard {
                     System.out.print("| ");
                 }
             }
-            if (i == 2 || i == 5) {
-            }
         }
     }
 

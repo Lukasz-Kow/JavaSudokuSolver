@@ -1,9 +1,13 @@
 package ife.mp.lk;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SudokuTestValidatorHelper {
+    private static final Logger logger = LoggerFactory.getLogger(SudokuTestValidatorHelper.class);
 
     public boolean isValid(SudokuBoard sudokuBoard) {
-
+        logger.atInfo().log("testing isValid");
         // Check rows
         for (int row = 0; row < 9; row++) {
             boolean[] seen = new boolean[10];

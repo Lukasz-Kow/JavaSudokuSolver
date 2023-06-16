@@ -1,6 +1,6 @@
 package ife.mp.lk.exeptions;
 
-public class ClassNotFoundError extends ClassNotFoundException{
+public class ClassNotFoundError extends ClassNotFoundException {
 
         public ClassNotFoundError(String message) {
             super(message);
