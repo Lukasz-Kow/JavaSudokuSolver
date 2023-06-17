@@ -3,7 +3,7 @@ package ife.mp.lk;
 
 public class SudokuBoardDaoFactory {
 
-    Dao<ISudokuBoard> getFileDao(String fileName) {
+    public Dao<ISudokuBoard> getFileDao(String fileName) {
         return new FileSudokuBoardDao<>(fileName);
     }
 

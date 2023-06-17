@@ -14,11 +14,6 @@ public abstract class SudokuBoardDecorator implements ISudokuBoard {
     }
 
     @Override
-    public void printBoard() {
-        this.sudokuBoard.printBoard();
-    }
-
-    @Override
     public int get(int x, int y) {
         return this.sudokuBoard.get(x, y);
     }

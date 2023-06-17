@@ -17,7 +17,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
     ObjectOutputStream oos = null;
 
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
-    private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
 
 
     public FileSudokuBoardDao(String fileName) {
@@ -25,7 +25,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
     }
 
     @Override
-    public SudokuBoardT read() throws IOException, ClassNotFoundException {
+    public SudokuBoardT read() {
         if (fis != null || ois != null) {
             logger.error("Error: ", new Exceptions_Dao(resourceBundle.getString("ReaderUsed")));
             throw new Exceptions_Dao(resourceBundle.getString("ReaderUsed"));
@@ -35,17 +35,15 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
             ois = new ObjectInputStream(fis);
 
             SudokuBoardT board = (SudokuBoardT) ois.readObject();
-            ois.close();
-            fis.close();
             return board;
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             logger.error("Error: ", e);
             throw new Exceptions_Dao(resourceBundle.getString("ErrorReading"), e);
         }
     }
 
     @Override
-    public void write(SudokuBoardT obj) throws IOException {
+    public void write(SudokuBoardT obj) {
         if (fos != null || oos != null) {
             logger.error("Error: ", new Exceptions_Dao(resourceBundle.getString("WriterUsed")));
             throw new Exceptions_Dao(resourceBundle.getString("WriterUsed"));
@@ -53,10 +51,7 @@ public class FileSudokuBoardDao<SudokuBoardT> implements Dao<SudokuBoardT>, Auto
         try {
             fos = new FileOutputStream(fileName);
             oos = new ObjectOutputStream(fos);
-
             oos.writeObject(obj);
-            oos.close();
-            fos.close();
         } catch (IOException e) {
             logger.error("Error: ", e);
             throw new Exceptions_Dao(resourceBundle.getString("ErrorWriting"), e);

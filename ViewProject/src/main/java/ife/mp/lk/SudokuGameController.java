@@ -1,5 +1,6 @@
 package ife.mp.lk;
 
+import ife.mp.lk.exeptions.Exceptions_Dao;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
@@ -106,49 +107,44 @@ public class SudokuGameController {
     @FXML
     public void saveSudoku(ActionEvent actionEvent) {
         resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Sudoku");
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            File file = fileChooser.showSaveDialog(stage);
-            if (file != null) {
-                //sudokuBoardDecorated.printBoard();
-                try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
-                             new FileSudokuBoardDao<>(file.getAbsolutePath())) {
-                    fileSudokuBoardDao.write(sudokuBoardDecorated);
-                }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Sudoku");
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null) {
+            try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
+                         new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                fileSudokuBoardDao.write(sudokuBoardDecorated);
+            } catch (Exceptions_Dao e) {
+                e.printStackTrace();
             }
-            logger.info(resourceBundle.getString("SudokuSaved"));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        logger.info(resourceBundle.getString("SudokuSaved"));
+
     }
 
     @FXML
     public void loadSudoku(ActionEvent actionEvent) {
         resourceBundle = ResourceBundle.getBundle("ife.mp.lk.language");
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Sudoku");
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            File file = fileChooser.showOpenDialog(stage);
 
-            if (file != null) {
-                try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
-                             new FileSudokuBoardDao<>(file.getAbsolutePath())) {
-                    sudokuBoardDecorated = fileSudokuBoardDao.read();
-                    //sudokuBoardDecorated.printBoard();
-                    updateBoard();
-                }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Sudoku");
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
+                         new FileSudokuBoardDao<>(file.getAbsolutePath())) {
+                sudokuBoardDecorated = fileSudokuBoardDao.read();
+                //sudokuBoardDecorated.printBoard();
+                updateBoard();
+            } catch (Exceptions_Dao e) {
+                e.printStackTrace();
             }
-            logger.info(resourceBundle.getString("SudokuLoaded"));
-        } catch (IOException e) {
-            logger.error("Error: ", e);
-            e.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            logger.error("Error: ", ex);
-            ex.printStackTrace();
         }
+        logger.info(resourceBundle.getString("SudokuLoaded"));
+
 
     }
 

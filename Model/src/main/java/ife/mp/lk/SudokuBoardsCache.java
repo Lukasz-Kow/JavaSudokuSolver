@@ -1,11 +1,21 @@
 package ife.mp.lk;
 
+import ife.mp.lk.exeptions.WrongKeyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+
 
 public class SudokuBoardsCache {
 
     private Map<String, SudokuBoard> cache = new HashMap<>();
+
+    private static final Logger logger = LoggerFactory.getLogger(SudokuBoardsCache.class);
+
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
 
     public SudokuBoardsCache() {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
@@ -28,8 +38,13 @@ public class SudokuBoardsCache {
 
     public SudokuBoard get(String key) {
         try {
-            return cache.get(key).clone();
-        } catch (Exception e) {
+            if (cache.containsKey(key)) {
+                return cache.get(key).clone();
+            } else {
+                logger.error("Error: ", new WrongKeyException(resourceBundle.getString("WrongKey")));
+                throw new WrongKeyException(resourceBundle.getString("WrongKey"));
+            }
+        } catch (WrongKeyException e) {
             return null;
         }
     }

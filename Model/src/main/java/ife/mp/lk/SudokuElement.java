@@ -38,7 +38,7 @@ public abstract class SudokuElement implements Serializable, Cloneable {
         return sudokuFields;
     }
 
-    boolean isValid() {
+    public boolean isValid() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
                 if (elements.get(i).getFieldValue() == elements.get(j).getFieldValue()
