@@ -16,16 +16,6 @@ class SudokuRowTest {
 
 
     @Test
-    void printRowTest(){
-        logger.atInfo().log("testing printRowTest");
-        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-        SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        sudokuRow.print();
-        assertNotNull(sudokuRow);
-    }
-
-
-    @Test
     void rowIsValidTest(){
         logger.atInfo().log("testing rowIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
@@ -42,7 +32,6 @@ class SudokuRowTest {
         sudokuBoard.set(0,0,1);
         sudokuBoard.set(1,0,1);
         SudokuRow sudokuRow = sudokuBoard.getRow(0);
-        sudokuRow.print();
 
         assertFalse(sudokuRow.isValid());
     }

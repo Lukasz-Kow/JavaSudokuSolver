@@ -62,18 +62,6 @@ public class SudokuBoard implements ISudokuBoard {
         solver.solve(this);
     }
 
-
-    public void printBoard() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (j == 2 || j == 5) {
-                    System.out.print("| ");
-                }
-            }
-        }
-    }
-
-
     public int get(int x, int y) {
         return fields.get(x + y * 9).getFieldValue();
     }
@@ -188,7 +176,6 @@ public class SudokuBoard implements ISudokuBoard {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard clonedBoard = new SudokuBoard(solver);
 
-        // DOBRZE
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 clonedBoard.set(i, j, get(i, j));

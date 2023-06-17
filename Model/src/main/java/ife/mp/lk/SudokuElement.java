@@ -50,10 +50,6 @@ public abstract class SudokuElement implements Serializable, Cloneable {
         return true;
     }
 
-    void print() {
-        for (int i = 0; i < 9; i++) {
-        }
-    }
 
     @Override
     public abstract SudokuElement clone();

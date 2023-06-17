@@ -6,8 +6,6 @@ public interface ISudokuBoard extends Serializable, Cloneable {
 
     void solve();
 
-    void printBoard();
-
     int get(int x, int y);
 
     void set(int x, int y, int value);

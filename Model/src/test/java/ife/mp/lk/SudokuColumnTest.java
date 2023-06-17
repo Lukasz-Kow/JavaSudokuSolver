@@ -16,16 +16,6 @@ class SudokuColumnTest {
 
 
     @Test
-    void printColumnTest(){
-        logger.atInfo().log("testing printColumnTest");
-        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-
-        SudokuColumn sudokuColumn = sudokuBoard.getColumn(0);
-        sudokuColumn.print();
-        assertNotNull(sudokuColumn);
-    }
-
-    @Test
     void columnIsValidTest(){
         logger.atInfo().log("testing columnIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");

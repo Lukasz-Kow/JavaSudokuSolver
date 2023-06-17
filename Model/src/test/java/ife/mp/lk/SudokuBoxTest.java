@@ -18,17 +18,6 @@ class SudokuBoxTest {
 
 
     @Test
-    void printBoxTest(){
-        logger.atInfo().log("testing printBoxTest");
-        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-
-        SudokuBox sudokuBox = sudokuBoard.getBox(0);
-        sudokuBox.print();
-        assertNotNull(sudokuBox);
-    }
-
-
-    @Test
     void BoxIsValidTest(){
         logger.atInfo().log("testing BoxIsValidTest");
         SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
