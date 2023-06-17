@@ -2,18 +2,19 @@ package ife.mp.lk;
 
 
 
+import ife.mp.lk.exeptions.NoSolutionException;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
 
-    public void solve(SudokuBoard board) {
+    public void solve(SudokuBoard board) throws NoSolutionException {
         if (!solve(board, 0, 0)) {
+            throw new NoSolutionException(resourceBundle.getString("NoSolution"));
         }
     }
 

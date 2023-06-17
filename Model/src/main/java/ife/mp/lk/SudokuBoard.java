@@ -1,9 +1,12 @@
 package ife.mp.lk;
 
+import ife.mp.lk.exeptions.NoSolutionException;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -17,6 +20,10 @@ public class SudokuBoard implements ISudokuBoard {
     private final List<SudokuField> fields;
 
     private final SudokuSolver solver;
+
+    private static final Logger logger = LoggerFactory.getLogger(SudokuBoard.class);
+
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
 
     public SudokuBoard(SudokuSolver solver) {
 
@@ -59,7 +66,11 @@ public class SudokuBoard implements ISudokuBoard {
 
 
     public void solve() {
-        solver.solve(this);
+        try {
+            solver.solve(this);
+        } catch (NoSolutionException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     public int get(int x, int y) {
