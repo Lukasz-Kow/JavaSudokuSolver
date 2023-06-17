@@ -1,5 +1,6 @@
-package ife.mp.lk;
+package ife.mp.lk.tests;
 
+import ife.mp.lk.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

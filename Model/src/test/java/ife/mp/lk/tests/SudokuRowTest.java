@@ -1,5 +1,9 @@
-package ife.mp.lk;
+package ife.mp.lk.tests;
 
+import ife.mp.lk.BacktrackingSudokuSolver;
+import ife.mp.lk.SudokuBoard;
+import ife.mp.lk.SudokuBoardsCache;
+import ife.mp.lk.SudokuRow;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

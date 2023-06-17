@@ -1,11 +1,13 @@
-package ife.mp.lk;
+package ife.mp.lk.tests;
 
+import ife.mp.lk.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +17,9 @@ class SudokuBoxTest {
 
     SudokuBoardsCache cache = new SudokuBoardsCache();
     private static final Logger logger = LoggerFactory.getLogger(SudokuBoxTest.class);
+
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+
 
 
     @Test
@@ -232,10 +237,9 @@ class SudokuBoxTest {
             SudokuBox box = new SudokuBox(testList);
         });
 
-        String expectedMessage = "Value must be between 1 and 9";
         String actualMessage = e.getMessage();
 
-        assertEquals(expectedMessage, actualMessage);
+        assertEquals(resourceBundle.getString("ValueBetween1and9"), actualMessage);
     }
 
 }

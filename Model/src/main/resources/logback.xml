@@ -12,9 +12,14 @@
         </encoder>
     </appender>
 
+    <logger name="ife.mp.lk.tests" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
     <root level="INFO">
         <appender-ref ref="FILE" />
     </root>
+
 
 
 </configuration>
