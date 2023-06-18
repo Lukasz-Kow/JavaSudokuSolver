@@ -8,7 +8,7 @@ public class SudokuTestValidatorHelper {
     private static final Logger logger = LoggerFactory.getLogger(SudokuTestValidatorHelper.class);
 
     public boolean isValid(SudokuBoard sudokuBoard) {
-        logger.atInfo().log("testing isValid");
+        logger.atInfo().log("running isValid helper function");
         // Check rows
         for (int row = 0; row < 9; row++) {
             boolean[] seen = new boolean[10];

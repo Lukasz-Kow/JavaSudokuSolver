@@ -31,7 +31,7 @@ public class FileSudokuBoardDaoTest {
 
     @BeforeAll
     static void setUp() {
-        logger.atInfo().log("testing setUp");
+        logger.atInfo().log("running setUp");
         sudokuBoard.solve();
         sudokuBoard.checkBoard();
     }
@@ -72,7 +72,7 @@ public class FileSudokuBoardDaoTest {
             }
         });
 
-        assertEquals(resourceBundle.getString("ErrorReading"), e.getMessage());
+        assertEquals(resourceBundle.getString("ReaderUsed"), e.getMessage());
     }
 
 
@@ -89,7 +89,7 @@ public class FileSudokuBoardDaoTest {
             }
         });
 
-        assertEquals(resourceBundle.getString("ErrorWriting"), e.getMessage());
+        assertEquals(resourceBundle.getString("WriterUsed"), e.getMessage());
     }
 
 
@@ -112,10 +112,6 @@ public class FileSudokuBoardDaoTest {
     void writeFailTest() {
         logger.atInfo().log("testing writeFailTest");
 
-        ByteArrayOutputStream logOutput = new ByteArrayOutputStream();
-        PrintStream logStream = new PrintStream(logOutput);
-        System.setErr(logStream);
-
         Exception e = assertThrows(Exceptions_Dao.class, () -> {
             try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
                     factory.getFileDao("/this/is/impossible/nonexistent.txt")) {
@@ -123,8 +119,6 @@ public class FileSudokuBoardDaoTest {
             }
         });
 
-        String logMessage = logOutput.toString();
-        System.setErr(System.err);
 
         assertEquals(resourceBundle.getString("ErrorWriting"), e.getMessage());
     }

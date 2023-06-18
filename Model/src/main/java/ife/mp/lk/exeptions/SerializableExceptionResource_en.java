@@ -11,6 +11,7 @@ public class SerializableExceptionResource_en extends ListResourceBundle impleme
             return new Object[][]{
                     {"NoSolution", "No solution found"},
                     {"ValueBetween1and9", "Value must be between 1 and 9"},
+                    {"ValueMustBe9", "Number of elements must be 9"},
                     {"NullError", "Null error"}
             };
         }

@@ -10,7 +10,8 @@ public class SerializableExceptionResource_pl  extends ListResourceBundle implem
         protected Object[][] getContents() {
             return new Object[][]{
                     {"NoSolution", "Nie znaleziono rozwiÄ\u0085zania"},
-                    {"ValueBetween1and9", "WartoÅ\u009BÄ\u0087 musi byÄ\u0087 miÄ\u0099dzy 1 i 9"},
+                    {"ValueBetween1and9", "Ilosc elementow musi byc miedzy 1 i 9"},
+                    {"ValueMustBe9", "Ilosc elementow musi byc 9"},
                     {"NullError", "BÅ\u0082Ä\u0099dny null"}
 
             };

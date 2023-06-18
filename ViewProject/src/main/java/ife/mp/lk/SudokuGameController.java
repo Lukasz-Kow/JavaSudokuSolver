@@ -117,7 +117,7 @@ public class SudokuGameController {
                          new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                 fileSudokuBoardDao.write(sudokuBoardDecorated);
             } catch (Exceptions_Dao e) {
-                e.printStackTrace();
+                logger.error(resourceBundle.getString("CouldNotSaveSudoku"), e);
             }
         }
         logger.info(resourceBundle.getString("SudokuSaved"));
@@ -137,10 +137,9 @@ public class SudokuGameController {
             try (FileSudokuBoardDao<SudokuBoardWithProgress> fileSudokuBoardDao =
                          new FileSudokuBoardDao<>(file.getAbsolutePath())) {
                 sudokuBoardDecorated = fileSudokuBoardDao.read();
-                //sudokuBoardDecorated.printBoard();
                 updateBoard();
             } catch (Exceptions_Dao e) {
-                e.printStackTrace();
+                logger.error(resourceBundle.getString("CouldNotLoadSudoku"), e);
             }
         }
         logger.info(resourceBundle.getString("SudokuLoaded"));

@@ -43,9 +43,6 @@ public class MainManuController implements Initializable {
 
         String key = getBundleKey(targetBundle, buttonText);
 
-        //System.out.println("Key: " + key);
-        chosenBundle.getString("Easy");
-
         // Perform action based on the pressed button
         if (key != null) {
             switch (key) {

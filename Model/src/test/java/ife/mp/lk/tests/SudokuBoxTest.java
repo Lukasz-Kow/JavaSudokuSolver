@@ -239,7 +239,7 @@ class SudokuBoxTest {
 
         String actualMessage = e.getMessage();
 
-        assertEquals(resourceBundle.getString("ValueBetween1and9"), actualMessage);
+        assertEquals(resourceBundle.getString("ValueMustBe9"), actualMessage);
     }
 
 }
