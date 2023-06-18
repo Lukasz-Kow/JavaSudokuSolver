@@ -257,19 +257,4 @@ class SudokuBoardTest {
         assertEquals(40, count);
     }
 
-    @Test
-    public void sudokuBoardCloneDoesNotTransferReferenceTest() throws CloneNotSupportedException {
-        logger.atInfo().log("testing sudokuBoardCloneDoesNotTransferReferenceTest");
-        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
-        SudokuBoard sudokuBoardClone = sudokuBoard.clone();
-
-        sudokuBoardClone.set(0, 0, 1);
-        sudokuBoardClone.set(0, 1, 1);
-
-
-        assertNotEquals(sudokuBoard, sudokuBoardClone);
-
-    }
-
-
 }

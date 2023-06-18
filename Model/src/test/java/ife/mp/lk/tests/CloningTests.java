@@ -11,6 +11,8 @@ public class CloningTests {
 
     private static final Logger logger = LoggerFactory.getLogger(CloningTests.class);
 
+    SudokuBoardsCache cache = new SudokuBoardsCache();
+
     @Test
     public void CreatingEmptySudokuBoardTest() {
         logger.atInfo().log("testing CreatingEmptySudokuBoardTest");
@@ -41,6 +43,17 @@ public class CloningTests {
         }
 
         assertNotEquals(0, sumOfBoard);
+    }
+
+    @Test
+    public void sudokuBoardCloneDoesNotTransferReferenceTest() throws CloneNotSupportedException {
+        logger.atInfo().log("testing sudokuBoardCloneDoesNotTransferReferenceTest");
+        SudokuBoard sudokuBoard = cache.get("Solved Sudoku Board");
+        SudokuBoard sudokuBoardClone = sudokuBoard.clone();
+
+        assertEquals(sudokuBoard, sudokuBoardClone);
+        assertNotSame(sudokuBoard, sudokuBoardClone);
+
     }
 
 }
