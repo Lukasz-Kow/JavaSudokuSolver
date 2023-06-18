@@ -23,8 +23,6 @@ public class SudokuBoard implements ISudokuBoard {
 
     private static final Logger logger = LoggerFactory.getLogger(SudokuBoard.class);
 
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
-
     public SudokuBoard(SudokuSolver solver) {
 
         this.fields = Arrays.asList(new SudokuField[81]);

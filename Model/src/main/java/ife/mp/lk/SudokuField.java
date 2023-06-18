@@ -26,7 +26,8 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
         this.value = value;
     }
 
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+    private final ResourceBundle resourceBundle =
+            ResourceBundle.getBundle("ife.mp.lk.exeptions.SerializableExceptionResource");
     private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
 
 

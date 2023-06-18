@@ -18,7 +18,7 @@ public abstract class SudokuElement implements Serializable, Cloneable {
 
     public List<SudokuField> elements;
 
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("ife.mp.lk.exeptions.SerializableExceptionResource");
     private static final Logger logger = LoggerFactory.getLogger(LoggingTest.class);
 
 

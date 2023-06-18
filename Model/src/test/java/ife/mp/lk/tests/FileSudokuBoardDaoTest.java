@@ -37,24 +37,25 @@ public class FileSudokuBoardDaoTest {
     }
 
     //TODO: fix this test
-    //    @Test
-    //    void readAndWriteTest() throws Exception {
-    //
-    //        try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
-    //                factory.getFileDao("test.txt")) {
-    //            dao.write(sudokuBoard);
-    //        }
-    //
-    //        ISudokuBoard previous;
-    //
-    //        try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
-    //                factory.getFileDao("test.txt")) {
-    //            previous = dao.read();
-    //        }
-    //
-    //        assertTrue(sudokuBoard.equals(previous));
-    //
-    //    }
+        @Test
+        void readAndWriteTest() throws Exception {
+            logger.atInfo().log("testing readAndWrite");
+
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
+                    factory.getFileDao("test.txt")) {
+                dao.write(sudokuBoard);
+            }
+
+            ISudokuBoard previous;
+
+            try (FileSudokuBoardDao<ISudokuBoard> dao = (FileSudokuBoardDao<ISudokuBoard>)
+                    factory.getFileDao("test.txt")) {
+                previous = dao.read();
+            }
+
+            assertTrue(sudokuBoard.equals(previous));
+
+        }
 
 
 

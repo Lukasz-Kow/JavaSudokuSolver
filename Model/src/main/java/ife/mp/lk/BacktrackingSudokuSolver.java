@@ -10,7 +10,7 @@ import java.util.*;
 
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
-    ResourceBundle resourceBundle = ResourceBundle.getBundle("errors");
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("ife.mp.lk.exeptions.SerializableExceptionResource");
 
     public void solve(SudokuBoard board) throws NoSolutionException {
         if (!solve(board, 0, 0)) {
